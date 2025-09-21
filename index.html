@@ -413,16 +413,28 @@
                         <div class="screenshot-caption">Chara protecting Susie from the King.</div>
                     </div>
                     <div class="screenshot">
-                        <img scr="story.png" alt="new Legend panels">
+                        <img src="story.png" alt="New Legend panels">
                         <div class="screenshot-caption">The Legend has been rewritten.</div>
                     </div>
                     <div class="screenshot">
-                        <div class="screenshot-caption">Light World interactions with rewritten flavor text</div>
+                        <img src="blade.png" alt="New Weapons">
+                        <div class="screenshot-caption">New Weapons.</div>
                     </div>
                 </div>
             </div>
         </div>
-        
+          <!-- Background Music -->
+    <audio id="backgroundMusic" loop preload="auto">
+        <source src="Once, She Was Chosen.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+
+    <div class="music-controls">
+        <button id="musicToggle" class="music-btn">♫ Music: OFF</button>
+        <input type="range" id="volumeSlider" min="0" max="100" value="30" class="volume-slider">
+        <span class="volume-label">Vol</span>
+    </div>
+    
         <footer class="footer">
             <div class="footer-text">
                 <p>A fan modification of DELTARUNE by Toby Fox</p>
@@ -433,6 +445,9 @@
                 <p>Created by Chara Dreemurr | Special thanks to Toby Fox and the DELTARUNE community</p>
             </div>
         </footer>
+    </div>
+   <div class="music-info" id="musicInfo">
+        ♪ Now Playing: Once, She Was Chosen
     </div>
 
     <script>
@@ -531,7 +546,70 @@
             }
         `;
         document.head.appendChild(style);
-        
+          // Music System
+        let musicPlaying = false;
+        let userInteracted = false;
+        const audio = document.getElementById('backgroundMusic');
+        const musicToggle = document.getElementById('musicToggle');
+        const volumeSlider = document.getElementById('volumeSlider');
+        const musicInfo = document.getElementById('musicInfo');
+
+        // Set initial volume (30% for background music)
+        audio.volume = 0.3;
+
+        // Toggle music on/off
+        musicToggle.addEventListener('click', function() {
+            if (musicPlaying) {
+                audio.pause();
+                musicToggle.textContent = '♫ Music: OFF';
+                musicToggle.classList.remove('playing');
+                musicInfo.classList.remove('show');
+                musicPlaying = false;
+            } else {
+                audio.play().then(() => {
+                    musicToggle.textContent = '♫ Music: ON';
+                    musicToggle.classList.add('playing');
+                    musicInfo.classList.add('show');
+                    musicPlaying = true;
+                }).catch(e => {
+                    console.log('Audio play failed:', e);
+                });
+            }
+        });
+
+        // Volume control
+        volumeSlider.addEventListener('input', function() {
+            audio.volume = this.value / 100;
+        });
+
+        // Auto-enable music on first user interaction
+        document.addEventListener('click', function() {
+            if (!userInteracted && !musicPlaying) {
+                userInteracted = true;
+                audio.play().then(() => {
+                    musicToggle.textContent = '♫ Music: ON';
+                    musicToggle.classList.add('playing');
+                    musicInfo.classList.add('show');
+                    musicPlaying = true;
+                }).catch(e => {
+                    console.log('Auto-play failed:', e);
+                });
+            }
+        }, { once: true });
+
+        // Hide music info after 5 seconds
+        audio.addEventListener('play', function() {
+            setTimeout(() => {
+                musicInfo.classList.remove('show');
+            }, 5000);
+        });
+
+        // Handle audio errors
+        audio.addEventListener('error', function() {
+            musicToggle.textContent = '♫ Music: ERROR';
+            console.log('Error loading audio file');
+        });
+
         // Initialize effects
         createStars();
         addTextCorruption();
