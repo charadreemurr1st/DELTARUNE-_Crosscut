@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DELTARUNE: Crosscut - Team Application</title>
-        <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -22,8 +23,6 @@
             image-rendering: -moz-crisp-edges;
             image-rendering: crisp-edges;
         }
-
-        @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
 
         .stars {
             position: fixed;
@@ -136,7 +135,7 @@
             border: 2px solid #333;
             background: #000;
             color: #fff;
-            font-size: 0.8rem;
+            font-size: 0.4rem;
             font-family: 'Press Start 2P', monospace;
             transition: all 0.3s ease;
         }
@@ -185,7 +184,7 @@
         }
 
         .checkbox-item label {
-            font-size: 0.7rem !important;
+            font-size: 0.3rem !important;
             margin: 0 !important;
             color: #ccc !important;
             text-transform: none !important;
@@ -219,7 +218,7 @@
         }
 
         .radio-item label {
-            font-size: 0.7rem !important;
+            font-size: 0.3rem !important;
             margin: 0 !important;
             color: #ccc !important;
             text-transform: none !important;
@@ -229,7 +228,7 @@
         .submit-btn {
             width: 100%;
             padding: 12px;
-            font-size: 0.8rem;
+            font-size: 0.5rem;
             font-family: 'Press Start 2P', monospace;
             color: #000;
             background: #ff6b9d;
@@ -259,12 +258,76 @@
         .note p {
             color: #ccc;
             line-height: 1.6;
-            font-size: 0.7rem;
+            font-size: 0.4rem;
         }
 
         .chara-text {
             color: #ff6b9d;
-            text-shadow: 0 0 6px #ff6b9d;
+            text-shadow: 0 0 5px #ff6b9d;
+        }
+
+        .music-controls {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            background: rgba(0, 0, 0, 0.8);
+            border: 2px solid #333;
+            padding: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.4rem;
+        }
+        
+        .music-btn {
+            background: #333;
+            border: 1px solid #666;
+            color: #fff;
+            padding: 5px 10px;
+            cursor: pointer;
+            font-size: 0.4rem;
+            font-family: 'Press Start 2P', monospace;
+            transition: all 0.3s ease;
+        }
+        
+        .music-btn:hover, 
+        .music-btn.playing {
+            background: #ff6b9d;
+            color: #000;
+            border-color: #ff6b9d;
+        }
+        
+        .volume-slider {
+            width: 50px;
+            height: 5px;
+            background: #333;
+            outline: none;
+        }
+        
+        .volume-label {
+            color: #ccc;
+            font-size: 0.3rem;
+        }
+        
+        .music-info {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background: rgba(0, 0, 0, 0.9);
+            border: 2px solid #ff6b9d;
+            padding: 10px 15px;
+            font-size: 0.4rem;
+            color: #ff6b9d;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.5s ease;
+            z-index: 1000;
+        }
+        
+        .music-info.show {
+            opacity: 1;
+            transform: translateY(0);
         }
 
         @media (max-width: 600px) {
@@ -274,17 +337,40 @@
             }
             
             .header h1 {
-                font-size:8em;
+                font-size: 1.2rem;
             }
             
             .checkbox-group {
                 grid-template-columns: 1fr;
+            }
+
+            .music-controls {
+                top: 10px;
+                right: 10px;
+                padding: 8px;
+                gap: 8px;
             }
         }
     </style>
 </head>
 <body>
     <div class="stars" id="stars"></div>
+    
+    <!-- Background Music -->
+    <audio id="backgroundMusic" loop preload="auto">
+        <source src="Abandoned_Town.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+
+    <div class="music-controls">
+        <button id="musicToggle" class="music-btn">♫ Music: OFF</button>
+        <input type="range" id="volumeSlider" min="0" max="100" value="30" class="volume-slider">
+        <span class="volume-label">Vol</span>
+    </div>
+
+    <div class="music-info" id="musicInfo">
+        ♪ Now Playing: Abandoned Town ~ Toby Fox ~ UNDERTALE 10th Anniversary OST
+    </div>
     
     <div class="container">
         <div class="header">
@@ -295,7 +381,7 @@
 
         <div class="note">
             <p><strong>G R E E T I N G S, <span class="chara-text">SOUL</span>.</strong> <span class="heart">♥</span></p>
-            <p><strong>A R E  W E . . . C O N N E C T E D?</strong><p>
+            <p><strong>A R E  W E . . . C O N N E C T E D?</strong></p>
             <p><strong>I HAVE COME UP WITH A VERY, VERY, INTERESTING EXPERIMENT.</strong></p>
             <p><strong>HOWEVER... I WILL REQUIRE YOUR... ASSISTANCE.</strong></p>
             <p><strong>IN ORDER... TO MAKE IT HAPPEN.</strong></p>
@@ -514,146 +600,7 @@
             }
         }
 
-        document.getElementById('applicationForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            // Check if at least one interest is selected
-            const interests = document.querySelectorAll('input[name="interests"]:checked');
-            if (interests.length === 0) {
-                alert('Please select at least one area you\'re interested in contributing to.');
-                return;
-            }
-
-            // Collect all form data
-            const formData = new FormData(this);
-            let emailBody = "DELTARUNE: CROSSCUT Development Team Application\n\n";
-            
-            // Format the email body
-            emailBody += "Name/Username: " + formData.get('name') + "\n";
-            emailBody += "Email: " + formData.get('email') + "\n";
-            emailBody += "Discord: " + formData.get('discord') + "\n";
-            emailBody += "Age Range: " + formData.get('age') + "\n";
-            emailBody += "Timezone: " + formData.get('timezone') + "\n\n";
-            
-            emailBody += "Areas of Interest: ";
-            const checkedInterests = [];
-            interests.forEach(interest => checkedInterests.push(interest.value));
-            emailBody += checkedInterests.join(', ') + "\n";
-            if (formData.get('other-interest')) {
-                emailBody += "Other Interest Specified: " + formData.get('other-interest') + "\n";
-            }
-            emailBody += "\n";
-            
-            emailBody += "UNDERTALE Tools Experience: " + formData.get('undertale-tools') + "\n";
-            emailBody += "Spriting Experience: " + formData.get('spriting-experience') + "\n";
-            emailBody += "Music Experience: " + formData.get('music-experience') + "\n";
-            emailBody += "Writing Experience: " + formData.get('writing-experience') + "\n";
-            emailBody += "Availability: " + formData.get('availability') + "\n\n";
-            
-            emailBody += "Why they want to join:\n" + formData.get('motivation') + "\n\n";
-            emailBody += "Experience:\n" + formData.get('experience') + "\n\n";
-            emailBody += "Portfolio:\n" + formData.get('portfolio') + "\n\n";
-            emailBody += "Additional Info:\n" + formData.get('additional') + "\n";
-
-            // Create mailto link
-            const subject = "DELTARUNE: CROSSCUT Team Application - " + formData.get('name');
-            const mailtoLink = "mailto:charadreemurr1st@gmail.com?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(emailBody);
-            
-            // Open email client
-            window.location.href = mailtoLink;
-            
-            alert('Your email client should open with the application. If it doesn\'t, please copy the form information and email it to charadreemurr1st@gmail.com');
-        });
-        
-        /* Music Controls */
-        {
-            
-        .music-controls {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            z-index: 1000;
-            background: rgba(0, 0, 0, 0.8);
-            border: 2px solid #333;
-            padding: 10px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 0.4rem;
-        }
-        
-        .music-btn {
-            background: #333;
-            border: 1px solid #666;
-            color: #fff;
-            padding: 5px 10px;
-            cursor: pointer;
-            font-size: 0.4rem;
-            font-family: 'Press Start 2P', monospace;
-            transition: all 0.3s ease;
-        }
-        
-        .music-btn:hover, .music-btn.playing {
-            background: #ff6b9d;
-            color: #000;
-            border-color: #ff6b9d;
-        }
-        
-        .volume-slider {
-            width: 50px;
-            height: 5px;
-            background: #333;
-            outline: none;
-        }
-        
-        .volume-label {
-            color: #ccc;
-            font-size: 0.3rem;
-        }
-        
-        .music-info {
-            position: fixed;
-            bottom: 20px;
-            left: 20px;
-            background: rgba(0, 0, 0, 0.9);
-            border: 2px solid #ff6b9d;
-            padding: 10px 15px;
-            font-size: 0.4rem;
-            color: #ff6b9d;
-            opacity: 0;
-            transform: translateY(20px);
-            transition: all 0.5s ease;
-            z-index: 1000;
-        }
-        
-        .music-info.show {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        
-         }
-            
-            .music-controls {
-                top: 10px;
-                right: 10px;
-                padding: 8px;
-                gap: 8px;
-            }
-        }
-           <!-- Background Music -->
-        <audio id="backgroundMusic" loop preload="auto">
-            <source src="Abandoned_Town.mp3" type="audio/mpeg">
-        </audio>
-
-        <div class="music-controls">
-            <button id="musicToggle" class="music-btn">♫ Music: OFF</button>
-            <input type="range" id="volumeSlider" min="0" max="100" value="30" class="volume-slider">
-            <span class="volume-label">Vol</span>
-        </div>
-    <div class="music-info" id="musicInfo">
-        ♪ Now Playing: Abandoned Town ~ Toby Fox ~ UNDERTALE 10th Anniversary OST
-    </div>
- // Music System
+        // Music System
         let musicPlaying = false;
         let userInteracted = false;
         const audio = document.getElementById('backgroundMusic');
@@ -717,6 +664,57 @@
             console.log('Error loading audio file');
         });
 
+        // Form submission handler
+        document.getElementById('applicationForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Check if at least one interest is selected
+            const interests = document.querySelectorAll('input[name="interests"]:checked');
+            if (interests.length === 0) {
+                alert('Please select at least one area you\'re interested in contributing to.');
+                return;
+            }
+
+            // Collect all form data
+            const formData = new FormData(this);
+            let emailBody = "DELTARUNE: CROSSCUT Development Team Application\n\n";
+            
+            // Format the email body
+            emailBody += "Name/Username: " + formData.get('name') + "\n";
+            emailBody += "Email: " + formData.get('email') + "\n";
+            emailBody += "Discord: " + formData.get('discord') + "\n";
+            emailBody += "Age Range: " + formData.get('age') + "\n";
+            emailBody += "Timezone: " + formData.get('timezone') + "\n\n";
+            
+            emailBody += "Areas of Interest: ";
+            const checkedInterests = [];
+            interests.forEach(interest => checkedInterests.push(interest.value));
+            emailBody += checkedInterests.join(', ') + "\n";
+            if (formData.get('other-interest')) {
+                emailBody += "Other Interest Specified: " + formData.get('other-interest') + "\n";
+            }
+            emailBody += "\n";
+            
+            emailBody += "UNDERTALE Tools Experience: " + formData.get('undertale-tools') + "\n";
+            emailBody += "Spriting Experience: " + formData.get('spriting-experience') + "\n";
+            emailBody += "Music Experience: " + formData.get('music-experience') + "\n";
+            emailBody += "Writing Experience: " + formData.get('writing-experience') + "\n";
+            emailBody += "Availability: " + formData.get('availability') + "\n\n";
+            
+            emailBody += "Why they want to join:\n" + formData.get('motivation') + "\n\n";
+            emailBody += "Experience:\n" + formData.get('experience') + "\n\n";
+            emailBody += "Portfolio:\n" + formData.get('portfolio') + "\n\n";
+            emailBody += "Additional Info:\n" + formData.get('additional') + "\n";
+
+            // Create mailto link
+            const subject = "DELTARUNE: CROSSCUT Team Application - " + formData.get('name');
+            const mailtoLink = "mailto:charadreemurr1st@gmail.com?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(emailBody);
+            
+            // Open email client
+            window.location.href = mailtoLink;
+            
+            alert('Your email client should open with the application. If it doesn\'t, please copy the form information and email it to charadreemurr1st@gmail.com');
+        });
 
         // Initialize starfield
         createStars();
