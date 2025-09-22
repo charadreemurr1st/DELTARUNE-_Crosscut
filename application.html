@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DELTARUNE: Crosscut - Team Application</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: #fff;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 30px rgba(255, 255, 255, 0.3);
+        }
+
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+            line-height: 1.6;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            font-size: 1.1em;
+            color: #fff;
+        }
+
+        .required {
+            color: #ff6b6b;
+        }
+
+        .form-group input[type="text"],
+        .form-group input[type="email"],
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input[type="text"]:focus,
+        .form-group input[type="email"]:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #4ecdc4;
+            box-shadow: 0 0 20px rgba(78, 205, 196, 0.3);
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+            font-family: inherit;
+        }
+
+        .checkbox-group {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 10px;
+        }
+
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .checkbox-item:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .checkbox-item input[type="checkbox"] {
+            margin-right: 10px;
+            transform: scale(1.2);
+        }
+
+        .radio-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .radio-item {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .radio-item:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .radio-item input[type="radio"] {
+            margin-right: 10px;
+            transform: scale(1.2);
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 15px;
+            font-size: 1.2em;
+            font-weight: 600;
+            color: #fff;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            border: none;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 30px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+            background: linear-gradient(45deg, #ff5252, #26c6da);
+        }
+
+        .note {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            border-left: 4px solid #4ecdc4;
+        }
+
+        .note p {
+            opacity: 0.9;
+            line-height: 1.5;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+                margin: 10px;
+            }
+            
+            .header h1 {
+                font-size: 2em;
+            }
+            
+            .checkbox-group {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>DELTARUNE: Crosscut</h1>
+            <p>Development Team Application</p>
+            <p>Join us in creating an amazing fan project!</p>
+        </div>
+
+        <div class="note">
+            <p><strong>Welcome!</strong> We're looking for passionate creators to help bring DELTARUNE: Crosscut to life. Whether you're experienced or just starting out, we'd love to hear from you!</p>
+        </div>
+
+        <form id="applicationForm">
+            <div class="form-group">
+                <label for="name">Name / Preferred Username <span class="required">*</span></label>
+                <input type="text" id="name" name="name" required>
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email Address <span class="required">*</span></label>
+                <input type="email" id="email" name="email" required>
+            </div>
+
+            <div class="form-group">
+                <label for="discord">Discord Username (if you have one)</label>
+                <input type="text" id="discord" name="discord" placeholder="e.g., Username#1234">
+            </div>
+
+            <div class="form-group">
+                <label for="age">Age Range <span class="required">*</span></label>
+                <select id="age" name="age" required>
+                    <option value="">Select your age range</option>
+                    <option value="under-16">Under 16</option>
+                    <option value="16-18">16-18</option>
+                    <option value="19-25">19-25</option>
+                    <option value="26-35">26-35</option>
+                    <option value="over-35">Over 35</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="timezone">Timezone / Region</label>
+                <input type="text" id="timezone" name="timezone" placeholder="e.g., EST, PST, GMT+2, Europe">
+            </div>
+
+            <div class="form-group">
+                <label>What areas are you interested in contributing to? (Check all that apply) <span class="required">*</span></label>
+                <div class="checkbox-group">
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="writing" name="interests" value="writing">
+                        <label for="writing">Writing & Dialogue</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="spriting" name="interests" value="spriting">
+                        <label for="spriting">Spriting & Art</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="music" name="interests" value="music">
+                        <label for="music">Music Composition</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="programming" name="interests" value="programming">
+                        <label for="programming">Programming</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="testing" name="interests" value="testing">
+                        <label for="testing">Testing & QA</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="other" name="interests" value="other">
+                        <label for="other">Other (specify below)</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="other-interest">If you selected "Other" above, please specify:</label>
+                <input type="text" id="other-interest" name="other-interest">
+            </div>
+
+            <div class="form-group">
+                <label for="undertale-tools">Do you have experience with UNDERTALE/DELTARUNE modding tools?</label>
+                <div class="radio-group">
+                    <div class="radio-item">
+                        <input type="radio" id="tools-expert" name="undertale-tools" value="expert">
+                        <label for="tools-expert">Yes, I'm very experienced</label>
+                    </div>
+                    <div class="radio-item">
+                        <input type="radio" id="tools-some" name="undertale-tools" value="some">
+                        <label for="tools-some">Yes, I have some experience</label>
+                    </div>
+                    <div class="radio-item">
+                        <input type="radio" id="tools-beginner" name="undertale-tools" value="beginner">
+                        <label for="tools-beginner">A little bit, but I'm still learning</label>
+                    </div>
+                    <div class="radio-item">
+                        <input type="radio" id="tools-none" name="undertale-tools" value="none">
+                        <label for="tools-none">No, but I'm willing to learn</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="spriting-experience">Do you have experience with pixel art or spriting?</label>
+                <div class="radio-group">
+                    <div class="radio-item">
+                        <input type="radio" id="sprite-expert" name="spriting-experience" value="expert">
+                        <label for="sprite-expert">Yes, I'm very experienced</label>
+                    </div>
+                    <div class="radio-item">
+                        <input type="radio" id="sprite-some" name="spriting-experience" value="some">
+                        <label for="sprite-some">Yes, I have some experience</label>
+                    </div>
+                    <div class="radio-item">
+                        <input type="radio" id="sprite-beginner" name="spriting-experience" value="beginner">
+                        <label for="sprite-beginner">A little bit, but I'm still learning</label>
+                    </div>
+                    <div class="radio-item">
+                        <input type="radio" id="sprite-none" name="spriting-experience" value="none">
+                        <label for="sprite-none">No, but I'm interested in learning</label>
+                    </div>
+                    <div class="radio-item">
+                        <input type="radio" id="sprite-not-interested" name="spriting-experience" value="not-interested">
+                        <label for="sprite-not-interested">Not interested in this area</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="music-experience">Do you have experience creating music for UNDERTALE/DELTARUNE style games?</label>
+                <div class="radio-group">
+                    <div class="radio-item">
+                        <input type="radio" id="music-expert" name="music-experience" value="expert">
+                        <label for="music-expert">Yes, I've made UT/DR style music before</label>
+                    </div>
+                    <div class="radio-item">
+                        <input type="radio" id="music-general" name="music-experience" value="general">
+                        <label for="music-general">I make music but not specifically UT/DR style</label>
+                    </div>
+                    <div class="radio-item">
+                        <input type="radio" id="music-beginner" name="music-experience" value="beginner">
+                        <label for="music-beginner">I'm a beginner but interested</label>
+                    </div>
+                    <div class="radio-item">
+                        <input type="radio" id="music-none" name="music-experience" value="none">
+                        <label for="music-none">No musical experience</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="writing-experience">Do you have experience with creative writing or dialogue?</label>
+                <div class="radio-group">
+                    <div class="radio-item">
+                        <input type="radio" id="writing-expert" name="writing-experience" value="expert">
+                        <label for="writing-expert">Yes, I'm experienced with creative writing</label>
+                    </div>
+                    <div class="radio-item">
+                        <input type="radio" id="writing-some" name="writing-experience" value="some">
+                        <label for="writing-some">I've done some writing projects</label>
+                    </div>
+                    <div class="radio-item">
+                        <input type="radio" id="writing-beginner" name="writing-experience" value="beginner">
+                        <label for="writing-beginner">I'm interested but still learning</label>
+                    </div>
+                    <div class="radio-item">
+                        <input type="radio" id="writing-none" name="writing-experience" value="none">
+                        <label for="writing-none">Not interested in writing</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="availability">How much time can you typically contribute per week?</label>
+                <select id="availability" name="availability">
+                    <option value="">Select your availability</option>
+                    <option value="1-3">1-3 hours per week</option>
+                    <option value="4-7">4-7 hours per week</option>
+                    <option value="8-15">8-15 hours per week</option>
+                    <option value="15+">More than 15 hours per week</option>
+                    <option value="varies">It varies depending on the week</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="motivation">Why do you want to join the DELTARUNE: Crosscut development team? <span class="required">*</span></label>
+                <textarea id="motivation" name="motivation" required placeholder="Tell us what draws you to this project and what you hope to contribute..."></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="experience">Tell us about any relevant experience or projects you've worked on:</label>
+                <textarea id="experience" name="experience" placeholder="This can include fan projects, school work, personal projects, or anything else you think is relevant. Don't worry if you're just starting out!"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="portfolio">Do you have any work you'd like to share? (Optional)</label>
+                <textarea id="portfolio" name="portfolio" placeholder="Feel free to share links to your art, music, writing, or other projects. This is completely optional!"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="additional">Is there anything else you'd like us to know?</label>
+                <textarea id="additional" name="additional" placeholder="Any questions, additional skills, or other information you'd like to share..."></textarea>
+            </div>
+
+            <button type="submit" class="submit-btn">Submit Application</button>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('applicationForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Check if at least one interest is selected
+            const interests = document.querySelectorAll('input[name="interests"]:checked');
+            if (interests.length === 0) {
+                alert('Please select at least one area you\'re interested in contributing to.');
+                return;
+            }
+
+            // Simple form validation passed
+            alert('Thank you for your application! In a real implementation, this would be submitted to Google Forms or your preferred form handler.\n\nWe\'ll review your application and get back to you soon!');
+        });
+
+        // Add some interactive effects
+        const formInputs = document.querySelectorAll('input, textarea, select');
+        formInputs.forEach(input => {
+            input.addEventListener('focus', function() {
+                this.parentElement.style.transform = 'translateY(-2px)';
+            });
+            
+            input.addEventListener('blur', function() {
+                this.parentElement.style.transform = 'translateY(0)';
+            });
+        });
+    </script>
+</body>
+</html>
