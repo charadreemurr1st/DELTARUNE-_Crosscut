@@ -12,45 +12,100 @@
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            font-family: 'Press Start 2P', monospace;
+            background: #000;
             min-height: 100vh;
             padding: 20px;
             color: #fff;
+            image-rendering: pixelated;
+            image-rendering: -moz-crisp-edges;
+            image-rendering: crisp-edges;
+        }
+
+        @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+        
+        .star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: #fff;
+            border-radius: 0;
+            opacity: 0.7;
+            animation: twinkle 4s infinite;
+        }
+        
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.2; }
+            50% { opacity: 1; }
         }
 
         .container {
+            position: relative;
+            z-index: 1;
             max-width: 800px;
             margin: 0 auto;
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
+            background: #111;
+            border: 3px solid #333;
             padding: 40px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 0 20px rgba(255, 107, 157, 0.3);
         }
 
         .header {
             text-align: center;
             margin-bottom: 40px;
             padding-bottom: 20px;
-            border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+            border-bottom: 3px solid #333;
         }
 
         .header h1 {
-            font-size: 2.5em;
+            font-size: 1.5rem;
             margin-bottom: 10px;
-            background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            text-shadow: 0 0 30px rgba(255, 255, 255, 0.3);
+            color: #ff6b9d;
+            text-shadow: 2px 2px 0 #000, 4px 4px 0 #333;
+            letter-spacing: 2px;
+            animation: textglitch 3s infinite;
+        }
+
+        @keyframes textglitch {
+            0%, 100% { text-shadow: 2px 2px 0 #000, 4px 4px 0 #333; }
+            25% { text-shadow: -2px 2px 0 #ff0000, 4px -4px 0 #00ffff; }
+            50% { text-shadow: 2px -2px 0 #ff0000, -4px 4px 0 #00ffff; }
+            75% { text-shadow: -2px -2px 0 #ff0000, 4px 4px 0 #00ffff; }
         }
 
         .header p {
-            font-size: 1.1em;
-            opacity: 0.9;
-            line-height: 1.6;
+            font-size: 0.4rem;
+            color: #ccc;
+            line-height: 1.8;
+            margin-bottom: 5px;
+        }
+
+        .tagline {
+            font-size: 0.3rem;
+            color: #ffff00;
+            font-style: italic;
+        }
+
+        .heart {
+            color: #ff0000;
+            font-size: 1.2em;
+            animation: heartbeat 2s infinite;
+            display: inline-block;
+        }
+        
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
         }
 
         .form-group {
@@ -60,13 +115,15 @@
         .form-group label {
             display: block;
             margin-bottom: 8px;
-            font-weight: 600;
-            font-size: 1.1em;
-            color: #fff;
+            font-weight: normal;
+            font-size: 0.5rem;
+            color: #ff6b9d;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         .required {
-            color: #ff6b6b;
+            color: #ff0000;
         }
 
         .form-group input[type="text"],
@@ -74,12 +131,12 @@
         .form-group textarea,
         .form-group select {
             width: 100%;
-            padding: 12px 16px;
-            border: 2px solid rgba(255, 255, 255, 0.2);
-            border-radius: 10px;
-            background: rgba(255, 255, 255, 0.1);
+            padding: 8px 12px;
+            border: 2px solid #333;
+            background: #000;
             color: #fff;
-            font-size: 16px;
+            font-size: 0.4rem;
+            font-family: 'Press Start 2P', monospace;
             transition: all 0.3s ease;
         }
 
@@ -88,101 +145,125 @@
         .form-group textarea:focus,
         .form-group select:focus {
             outline: none;
-            border-color: #4ecdc4;
-            box-shadow: 0 0 20px rgba(78, 205, 196, 0.3);
-            background: rgba(255, 255, 255, 0.15);
+            border-color: #ff6b9d;
+            box-shadow: 0 0 10px rgba(255, 107, 157, 0.5);
+            background: #111;
         }
 
         .form-group textarea {
             resize: vertical;
-            min-height: 120px;
-            font-family: inherit;
+            min-height: 80px;
+            font-family: 'Press Start 2P', monospace;
+            line-height: 1.4;
         }
 
         .checkbox-group {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 10px;
             margin-top: 10px;
         }
 
         .checkbox-item {
             display: flex;
             align-items: center;
-            padding: 10px;
-            border-radius: 8px;
-            background: rgba(255, 255, 255, 0.05);
+            padding: 8px;
+            background: #000;
+            border: 2px solid #333;
             transition: all 0.3s ease;
         }
 
         .checkbox-item:hover {
-            background: rgba(255, 255, 255, 0.1);
-            transform: translateY(-2px);
+            border-color: #ff6b9d;
+            background: #111;
         }
 
         .checkbox-item input[type="checkbox"] {
-            margin-right: 10px;
-            transform: scale(1.2);
+            margin-right: 8px;
+            transform: scale(1.5);
+        }
+
+        .checkbox-item label {
+            font-size: 0.3rem !important;
+            margin: 0 !important;
+            color: #ccc !important;
+            text-transform: none !important;
+            letter-spacing: normal !important;
         }
 
         .radio-group {
             display: flex;
             flex-direction: column;
-            gap: 10px;
+            gap: 8px;
             margin-top: 10px;
         }
 
         .radio-item {
             display: flex;
             align-items: center;
-            padding: 10px;
-            border-radius: 8px;
-            background: rgba(255, 255, 255, 0.05);
+            padding: 8px;
+            background: #000;
+            border: 2px solid #333;
             transition: all 0.3s ease;
         }
 
         .radio-item:hover {
-            background: rgba(255, 255, 255, 0.1);
+            border-color: #ff6b9d;
+            background: #111;
         }
 
         .radio-item input[type="radio"] {
-            margin-right: 10px;
-            transform: scale(1.2);
+            margin-right: 8px;
+            transform: scale(1.5);
+        }
+
+        .radio-item label {
+            font-size: 0.3rem !important;
+            margin: 0 !important;
+            color: #ccc !important;
+            text-transform: none !important;
+            letter-spacing: normal !important;
         }
 
         .submit-btn {
             width: 100%;
-            padding: 15px;
-            font-size: 1.2em;
-            font-weight: 600;
-            color: #fff;
-            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
-            border: none;
-            border-radius: 15px;
+            padding: 12px;
+            font-size: 0.5rem;
+            font-family: 'Press Start 2P', monospace;
+            color: #000;
+            background: #ff6b9d;
+            border: 3px solid #ff6b9d;
             cursor: pointer;
             transition: all 0.3s ease;
             margin-top: 30px;
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 2px;
         }
 
         .submit-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
-            background: linear-gradient(45deg, #ff5252, #26c6da);
+            background: #000;
+            color: #ff6b9d;
+            box-shadow: 0 0 15px rgba(255, 107, 157, 0.7);
+            transform: translateY(-2px);
         }
 
         .note {
-            background: rgba(255, 255, 255, 0.1);
+            background: #111;
             padding: 15px;
-            border-radius: 10px;
             margin-bottom: 20px;
-            border-left: 4px solid #4ecdc4;
+            border: 2px solid #333;
+            border-left: 4px solid #ff6b9d;
         }
 
         .note p {
-            opacity: 0.9;
-            line-height: 1.5;
+            color: #ccc;
+            line-height: 1.6;
+            font-size: 0.4rem;
+        }
+
+        .chara-text {
+            color: #ff6b9d;
+            text-shadow: 0 0 5px #ff6b9d;
         }
 
         @media (max-width: 600px) {
@@ -202,18 +283,20 @@
     </style>
 </head>
 <body>
+    <div class="stars" id="stars"></div>
+    
     <div class="container">
         <div class="header">
-            <h1>DELTARUNE: Crosscut</h1>
+            <h1>DELTARUNE: CROSSCUT</h1>
             <p>Development Team Application</p>
-            <p>Join us in creating an amazing fan project!</p>
+            <p class="tagline">Join us in the Post-Scratch universe...</p>
         </div>
 
         <div class="note">
-            <p><strong>Welcome!</strong> We're looking for passionate creators to help bring DELTARUNE: Crosscut to life. Whether you're experienced or just starting out, we'd love to hear from you!</p>
+            <p><strong>Welcome, <span class="chara-text">Troublemaker</span>!</strong> We're looking for passionate creators to help bring DELTARUNE: Crosscut to life. Whether you're experienced or just starting out, we'd love to have you on our team. <span class="heart">♥</span></p>
         </div>
 
-        <form id="applicationForm">
+        <form id="applicationForm" action="mailto:charadreemurr1st@gmail.com" method="post" enctype="text/plain">
             <div class="form-group">
                 <label for="name">Name / Preferred Username <span class="required">*</span></label>
                 <input type="text" id="name" name="name" required>
@@ -410,6 +493,22 @@
     </div>
 
     <script>
+        // Create starfield (same as main website)
+        function createStars() {
+            const starsContainer = document.getElementById('stars');
+            const numStars = 150;
+            
+            for (let i = 0; i < numStars; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+                star.style.animationDelay = Math.random() * 4 + 's';
+                star.style.animationDuration = (Math.random() * 4 + 3) + 's';
+                starsContainer.appendChild(star);
+            }
+        }
+
         document.getElementById('applicationForm').addEventListener('submit', function(e) {
             e.preventDefault();
             
@@ -420,21 +519,49 @@
                 return;
             }
 
-            // Simple form validation passed
-            alert('Thank you for your application! In a real implementation, this would be submitted to Google Forms or your preferred form handler.\n\nWe\'ll review your application and get back to you soon!');
+            // Collect all form data
+            const formData = new FormData(this);
+            let emailBody = "DELTARUNE: CROSSCUT Development Team Application\n\n";
+            
+            // Format the email body
+            emailBody += "Name/Username: " + formData.get('name') + "\n";
+            emailBody += "Email: " + formData.get('email') + "\n";
+            emailBody += "Discord: " + formData.get('discord') + "\n";
+            emailBody += "Age Range: " + formData.get('age') + "\n";
+            emailBody += "Timezone: " + formData.get('timezone') + "\n\n";
+            
+            emailBody += "Areas of Interest: ";
+            const checkedInterests = [];
+            interests.forEach(interest => checkedInterests.push(interest.value));
+            emailBody += checkedInterests.join(', ') + "\n";
+            if (formData.get('other-interest')) {
+                emailBody += "Other Interest Specified: " + formData.get('other-interest') + "\n";
+            }
+            emailBody += "\n";
+            
+            emailBody += "UNDERTALE Tools Experience: " + formData.get('undertale-tools') + "\n";
+            emailBody += "Spriting Experience: " + formData.get('spriting-experience') + "\n";
+            emailBody += "Music Experience: " + formData.get('music-experience') + "\n";
+            emailBody += "Writing Experience: " + formData.get('writing-experience') + "\n";
+            emailBody += "Availability: " + formData.get('availability') + "\n\n";
+            
+            emailBody += "Why they want to join:\n" + formData.get('motivation') + "\n\n";
+            emailBody += "Experience:\n" + formData.get('experience') + "\n\n";
+            emailBody += "Portfolio:\n" + formData.get('portfolio') + "\n\n";
+            emailBody += "Additional Info:\n" + formData.get('additional') + "\n";
+
+            // Create mailto link
+            const subject = "DELTARUNE: CROSSCUT Team Application - " + formData.get('name');
+            const mailtoLink = "mailto:charadreemurr1st@gmail.com?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(emailBody);
+            
+            // Open email client
+            window.location.href = mailtoLink;
+            
+            alert('Your email client should open with the application. If it doesn\'t, please copy the form information and email it to charadreemurr1st@gmail.com');
         });
 
-        // Add some interactive effects
-        const formInputs = document.querySelectorAll('input, textarea, select');
-        formInputs.forEach(input => {
-            input.addEventListener('focus', function() {
-                this.parentElement.style.transform = 'translateY(-2px)';
-            });
-            
-            input.addEventListener('blur', function() {
-                this.parentElement.style.transform = 'translateY(0)';
-            });
-        });
+        // Initialize starfield
+        createStars();
     </script>
 </body>
 </html>
