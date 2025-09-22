@@ -560,6 +560,158 @@
             
             alert('Your email client should open with the application. If it doesn\'t, please copy the form information and email it to charadreemurr1st@gmail.com');
         });
+        
+        /* Music Controls */
+        .music-controls {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            background: rgba(0, 0, 0, 0.8);
+            border: 2px solid #333;
+            padding: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.4rem;
+        }
+        
+        .music-btn {
+            background: #333;
+            border: 1px solid #666;
+            color: #fff;
+            padding: 5px 10px;
+            cursor: pointer;
+            font-size: 0.4rem;
+            font-family: 'Press Start 2P', monospace;
+            transition: all 0.3s ease;
+        }
+        
+        .music-btn:hover, .music-btn.playing {
+            background: #ff6b9d;
+            color: #000;
+            border-color: #ff6b9d;
+        }
+        
+        .volume-slider {
+            width: 50px;
+            height: 5px;
+            background: #333;
+            outline: none;
+        }
+        
+        .volume-label {
+            color: #ccc;
+            font-size: 0.3rem;
+        }
+        
+        .music-info {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background: rgba(0, 0, 0, 0.9);
+            border: 2px solid #ff6b9d;
+            padding: 10px 15px;
+            font-size: 0.4rem;
+            color: #ff6b9d;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.5s ease;
+            z-index: 1000;
+        }
+        
+        .music-info.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+         }
+            
+            .music-controls {
+                top: 10px;
+                right: 10px;
+                padding: 8px;
+                gap: 8px;
+            }
+        }
+           <!-- Background Music -->
+        <audio id="backgroundMusic" loop preload="auto">
+            <source src="Abandoned_Town.mp3" type="audio/mpeg">
+            Your browser does not support the audio element.
+        </audio>
+
+        <div class="music-controls">
+            <button id="musicToggle" class="music-btn">♫ Music: OFF</button>
+            <input type="range" id="volumeSlider" min="0" max="100" value="30" class="volume-slider">
+            <span class="volume-label">Vol</span>
+        </div>
+    <div class="music-info" id="musicInfo">
+        ♪ Now Playing: Abandoned Town ~ Toby Fox ~ UNDERTALE 10th Anniversary OST
+    </div>
+ // Music System
+        let musicPlaying = false;
+        let userInteracted = false;
+        const audio = document.getElementById('backgroundMusic');
+        const musicToggle = document.getElementById('musicToggle');
+        const volumeSlider = document.getElementById('volumeSlider');
+        const musicInfo = document.getElementById('musicInfo');
+
+        // Set initial volume (30% for background music)
+        audio.volume = 0.3;
+
+        // Toggle music on/off
+        musicToggle.addEventListener('click', function() {
+            if (musicPlaying) {
+                audio.pause();
+                musicToggle.textContent = '♫ Music: OFF';
+                musicToggle.classList.remove('playing');
+                musicInfo.classList.remove('show');
+                musicPlaying = false;
+            } else {
+                audio.play().then(() => {
+                    musicToggle.textContent = '♫ Music: ON';
+                    musicToggle.classList.add('playing');
+                    musicInfo.classList.add('show');
+                    musicPlaying = true;
+                }).catch(e => {
+                    console.log('Audio play failed:', e);
+                });
+            }
+        });
+
+        // Volume control
+        volumeSlider.addEventListener('input', function() {
+            audio.volume = this.value / 100;
+        });
+
+        // Auto-enable music on first user interaction
+        document.addEventListener('click', function() {
+            if (!userInteracted && !musicPlaying) {
+                userInteracted = true;
+                audio.play().then(() => {
+                    musicToggle.textContent = '♫ Music: ON';
+                    musicToggle.classList.add('playing');
+                    musicInfo.classList.add('show');
+                    musicPlaying = true;
+                }).catch(e => {
+                    console.log('Auto-play failed:', e);
+                });
+            }
+        }, { once: true });
+
+        // Hide music info after 5 seconds
+        audio.addEventListener('play', function() {
+            setTimeout(() => {
+                musicInfo.classList.remove('show');
+            }, 5000);
+        });
+
+        // Handle audio errors
+        audio.addEventListener('error', function() {
+            musicToggle.textContent = '♫ Music: ERROR';
+            console.log('Error loading audio file');
+        });
+
 
         // Initialize starfield
         createStars();
