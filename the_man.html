@@ -7,9 +7,270 @@
     <link rel="icon" type="image/x-icon" href="ice.ico">
     <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
     <style>
-        /* ... existing styles ... */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-        /* --- Existing styles omitted for brevity, do not remove them! --- */
+        body {
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a0a1a 50%, #0a0a0a 100%);
+            color: #e0e0e0;
+            font-family: 'VT323', monospace;
+            font-size: 18px;
+            line-height: 1.6;
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Snow animation */
+        .snow {
+            position: fixed;
+            top: -100px;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .snowflake {
+            position: absolute;
+            color: rgba(255, 255, 255, 0.3);
+            user-select: none;
+            pointer-events: none;
+            font-size: 14px;
+            animation: fall linear infinite;
+        }
+
+        @keyframes fall {
+            0% {
+                transform: translateY(-100px) translateX(0px);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) translateX(var(--drift, 0px));
+                opacity: 0;
+            }
+        }
+
+        /* Container and layout */
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .title {
+            text-align: center;
+            font-size: 3.5em;
+            margin-bottom: 10px;
+            text-shadow: 3px 3px 0px #ff0000, -3px -3px 0px #00ffff;
+            position: relative;
+        }
+
+        .tree-emoji {
+            font-size: 1.2em;
+            filter: hue-rotate(120deg) brightness(0.8);
+        }
+
+        .subtitle {
+            text-align: center;
+            font-size: 1.2em;
+            margin-bottom: 40px;
+            color: #888;
+            text-shadow: 1px 1px 2px #000;
+        }
+
+        .story-content {
+            background: rgba(0, 0, 0, 0.7);
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 0 30px rgba(255, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .story-content p {
+            margin-bottom: 20px;
+            font-size: 1.1em;
+            text-shadow: 1px 1px 1px #000;
+        }
+
+        /* Glitch effects */
+        .glitch {
+            position: relative;
+            color: #fff;
+            animation: glitch 2s infinite;
+        }
+
+        .glitch-emphasis {
+            color: #ff4444;
+            font-weight: bold;
+            text-shadow: 2px 0 #ff0000, -2px 0 #00ffff;
+        }
+
+        .glitch-thought {
+            color: #ffaa00;
+            font-style: italic;
+            text-shadow: 1px 1px 3px #000;
+        }
+
+        .glitch-memory {
+            color: #aa88ff;
+            text-shadow: 0 0 5px #aa88ff;
+        }
+
+        @keyframes glitch {
+            0%, 98% {
+                text-shadow: 3px 3px 0px #ff0000, -3px -3px 0px #00ffff;
+            }
+            1% {
+                text-shadow: -3px 3px 0px #ff0000, 3px -3px 0px #00ffff;
+            }
+            2% {
+                text-shadow: 3px -3px 0px #ff0000, -3px 3px 0px #00ffff;
+            }
+        }
+
+        /* Cursor trail */
+        .cursor-trail {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 50%;
+            pointer-events: none;
+            animation: fade-out 0.5s ease-out forwards;
+            z-index: 1000;
+        }
+
+        @keyframes fade-out {
+            from {
+                opacity: 1;
+                transform: scale(1);
+            }
+            to {
+                opacity: 0;
+                transform: scale(0);
+            }
+        }
+
+        /* Music controls */
+        .music-controls {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 10px 15px;
+            border-radius: 5px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .music-btn {
+            background: #222;
+            color: #fff;
+            border: 1px solid #555;
+            padding: 8px 12px;
+            border-radius: 3px;
+            font-family: 'VT323', monospace;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .music-btn:hover {
+            background: #333;
+            border-color: #777;
+        }
+
+        .music-btn.playing {
+            background: #004400;
+            border-color: #00aa00;
+            color: #00ff00;
+        }
+
+        .volume-slider {
+            width: 80px;
+            accent-color: #ff4444;
+        }
+
+        .volume-label {
+            color: #ccc;
+            font-size: 12px;
+            font-family: 'VT323', monospace;
+        }
+
+        /* Music info popup */
+        .music-info {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.9);
+            color: #00ff00;
+            padding: 15px;
+            border-radius: 5px;
+            font-family: 'VT323', monospace;
+            font-size: 14px;
+            border: 1px solid #00aa00;
+            transform: translateX(120%);
+            transition: transform 0.5s ease;
+            z-index: 1001;
+            max-width: 300px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .music-info.show {
+            transform: translateX(0);
+        }
+
+        .music-info-scanlines {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: repeating-linear-gradient(
+                0deg,
+                transparent,
+                transparent 2px,
+                rgba(0, 255, 0, 0.03) 2px,
+                rgba(0, 255, 0, 0.03) 4px
+            );
+            pointer-events: none;
+        }
+
+        .music-info-static {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><filter id="noise"><feTurbulence baseFrequency="0.9" numOctaves="4" stitchTiles="stitch"/></filter></defs><rect width="100%" height="100%" filter="url(%23noise)" opacity="0.02"/></svg>');
+            pointer-events: none;
+            animation: static 0.1s infinite;
+        }
+
+        @keyframes static {
+            0% { transform: translate(0, 0); }
+            10% { transform: translate(-1px, 1px); }
+            20% { transform: translate(1px, 0px); }
+            30% { transform: translate(0px, -1px); }
+            40% { transform: translate(-1px, -1px); }
+            50% { transform: translate(1px, 1px); }
+            60% { transform: translate(0px, 0px); }
+            70% { transform: translate(-1px, 0px); }
+            80% { transform: translate(1px, -1px); }
+            90% { transform: translate(0px, 1px); }
+            100% { transform: translate(0px, 0px); }
+        }
 
         /* === CREEPY GLITCHED WINGDINGS FINAL LINE === */
         .final-creepy-line {
@@ -89,6 +350,24 @@
             height: 1px;
             overflow: hidden;
         }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .title {
+                font-size: 2.5em;
+            }
+            .container {
+                padding: 15px;
+            }
+            .story-content {
+                padding: 20px;
+            }
+            .music-controls {
+                bottom: 10px;
+                right: 10px;
+                padding: 8px 10px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -158,9 +437,10 @@
         </div>
     </div>
 
-    <!-- Music Player Structure, adapted for consistency with index.html -->
+    <!-- Music Player Structure -->
     <audio id="backgroundMusic" loop preload="auto">
         <source src="flashback.ogg" type="audio/ogg">
+        <source src="flashback.mp3" type="audio/mpeg">
         Your browser does not support the audio element.
     </audio>
 
@@ -183,25 +463,26 @@
         // Unicode Wingdings mapping for "Behind you."
         // Fallbacks will show normal letters if Wingdings is missing.
         const wingdingsMap = {
-            'B': '\uF0A5', // hand pointing right
-            'e': '\uF076', // eye
-            'h': '\uF0B1', // clock (hourglass)
-            'i': '\uF06E', // exclamation
-            'n': '\uF0E0', // bell
-            'd': '\uF0A6', // hand pointing left
+            'B': '👆', // pointing up
+            'e': '👁', // eye
+            'h': '⏰', // clock
+            'i': '❗', // exclamation
+            'n': '🔔', // bell
+            'd': '👇', // pointing down
             ' ': '\u00A0',
-            'y': '\uF0C6', // skull
-            'o': '\uF0A7', // thumb up
-            'u': '\uF018', // smiley
-            '.': '\uF0FB'  // black circle
+            'y': '💀', // skull
+            'o': '👍', // thumb up
+            'u': '😊', // smiley
+            '.': '●'  // black circle
         };
+        
         // For fallback, just in case, fallback to normal letter.
         function toWingdings(char) {
             return wingdingsMap[char] || char;
         }
 
         const finalLine = document.getElementById('finalLine');
-        const charSpans = finalLine.querySelectorAll('.char');
+        let charSpans = finalLine.querySelectorAll('.char');
         // The three message states:
         const states = [
             { // 0: Normal
@@ -243,6 +524,7 @@
                     span.textContent = c;
                     finalLine.appendChild(span);
                 }
+                charSpans = finalLine.querySelectorAll('.char');
             } else {
                 // Otherwise just update letters
                 finalLine.querySelector('.sr-only').textContent = state.text;
@@ -318,8 +600,6 @@
         swapTimer = setTimeout(nextFinalState, 2600 + Math.random()*2200);
         setInterval(jitterFinalLine, 68);
 
-        // --- The rest of your script remains unchanged. ---
-
         // Create falling snow
         function createSnow() {
             const snow = document.getElementById('snow');
@@ -354,7 +634,9 @@
                 document.body.appendChild(trail);
                 
                 setTimeout(() => {
-                    document.body.removeChild(trail);
+                    if (document.body.contains(trail)) {
+                        document.body.removeChild(trail);
+                    }
                 }, 500);
             }
         });
@@ -365,37 +647,40 @@
             const randomElement = textElements[Math.floor(Math.random() * textElements.length)];
             
             if (Math.random() > 0.95) { // Very rare corruption
-                const originalText = randomElement.textContent;
-                const corruptedText = originalText.split('').map(char => {
+                const originalHTML = randomElement.innerHTML;
+                const textContent = randomElement.textContent;
+                const corruptedText = textContent.split('').map(char => {
                     return Math.random() > 0.95 ? '█' : char;
                 }).join('');
                 
                 randomElement.textContent = corruptedText;
                 
                 setTimeout(() => {
-                    randomElement.innerHTML = originalText;
+                    randomElement.innerHTML = originalHTML;
                 }, 100);
             }
         }
 
-        // Glitch/jitter the music-info popup even more, and add sound and text corruption
+        // Glitch/jitter the music-info popup
         function glitchMusicInfo() {
             const musicInfo = document.getElementById('musicInfo');
             if (!musicInfo.classList.contains('show')) return;
+            
             // Randomly shift the popup position, scale, and rotate slightly
             if (Math.random() > 0.8) {
                 const dx = (Math.random() - 0.5) * 12;
                 const dy = (Math.random() - 0.5) * 10;
                 const scale = 1 + (Math.random() - 0.5) * 0.08;
                 const rot = (Math.random() - 0.5) * 2.5;
-                musicInfo.style.transform = `translateY(0) scale(${scale}) skew(-1.5deg, 0deg) translate(${dx}px,${dy}px) rotate(${rot}deg)`;
+                musicInfo.style.transform = `translateX(0) scale(${scale}) translate(${dx}px,${dy}px) rotate(${rot}deg)`;
             } else {
-                musicInfo.style.transform = '';
+                musicInfo.style.transform = 'translateX(0)';
             }
-            // Chance to corrupt text with █ or weird Unicode
+            
+            // Chance to corrupt text
             if (Math.random() > 0.93) {
                 let txt = musicInfo.getAttribute("data-text");
-                const corruptionChars = ['█', '▓', '▒', '░', '͟', '̷', '̸', '͜', '͟', '͢', '͜', '͟', '͝', '͞', '͟', '͠'];
+                const corruptionChars = ['█', '▓', '▒', '░', '҉', 'Ì·', 'Ì¸', 'Ì€', 'Ì'];
                 let corrupted = '';
                 for (let i = 0; i < txt.length; i++) {
                     if (Math.random() > 0.97) {
@@ -411,21 +696,28 @@
                 musicInfo.innerHTML = musicInfo.getAttribute("data-text") +
                     '<div class="music-info-scanlines"></div><div class="music-info-static"></div>';
             }
-            // Rarely play a static or noise burst (Web Audio API)
-            if (Math.random() > 0.995 && window.AudioContext) {
-                let ctx = window._staticCtx || (window._staticCtx = new (window.AudioContext || window.webkitAudioContext)());
-                let buffer = ctx.createBuffer(1, 4096, ctx.sampleRate);
-                let data = buffer.getChannelData(0);
-                for (let i = 0; i < data.length; i++) {
-                    data[i] = (Math.random()-0.5) * (Math.random() > 0.98 ? 2 : 0.35);
+            
+            // Rarely play a static sound (simplified for compatibility)
+            if (Math.random() > 0.995) {
+                try {
+                    if (window.AudioContext || window.webkitAudioContext) {
+                        let ctx = window._staticCtx || (window._staticCtx = new (window.AudioContext || window.webkitAudioContext)());
+                        let buffer = ctx.createBuffer(1, 4096, ctx.sampleRate);
+                        let data = buffer.getChannelData(0);
+                        for (let i = 0; i < data.length; i++) {
+                            data[i] = (Math.random()-0.5) * (Math.random() > 0.98 ? 2 : 0.35);
+                        }
+                        let src = ctx.createBufferSource();
+                        src.buffer = buffer;
+                        let gain = ctx.createGain();
+                        gain.gain.value = 0.15 + Math.random()*0.08;
+                        src.connect(gain).connect(ctx.destination);
+                        src.start(0);
+                        src.stop(ctx.currentTime + 0.06 + Math.random() * 0.13);
+                    }
+                } catch (e) {
+                    console.log('Static sound failed:', e);
                 }
-                let src = ctx.createBufferSource();
-                src.buffer = buffer;
-                let gain = ctx.createGain();
-                gain.gain.value = 0.15 + Math.random()*0.08;
-                src.connect(gain).connect(ctx.destination);
-                src.start(0);
-                src.stop(ctx.currentTime + 0.06 + Math.random() * 0.13);
             }
         }
 
@@ -434,7 +726,7 @@
         setInterval(corruptText, 3000);
         setInterval(glitchMusicInfo, 80);
 
-        // ---- Music system (copied/adapted from index.html) ----
+        // ---- Music system ----
         let musicPlaying = false;
         let userInteracted = false;
         const audio = document.getElementById('backgroundMusic');
@@ -458,7 +750,7 @@
                     musicToggle.textContent = '♫ Music: ON';
                     musicToggle.classList.add('playing');
                     musicInfo.classList.add('show');
-                    // forcibly reset text to prevent stuck corruption
+                    // Reset text to prevent stuck corruption
                     musicInfo.innerHTML = musicInfo.getAttribute("data-text") +
                         '<div class="music-info-scanlines"></div><div class="music-info-static"></div>';
                     musicPlaying = true;
@@ -498,9 +790,9 @@
         });
 
         // Handle audio errors
-        audio.addEventListener('error', function() {
+        audio.addEventListener('error', function(e) {
             musicToggle.textContent = '♫ Music: ERROR';
-            console.log('Error loading audio file');
+            console.log('Error loading audio file:', e);
         });
 
         // Try to autoplay on load
