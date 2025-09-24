@@ -12,7 +12,6 @@
             padding: 0;
             box-sizing: border-box;
         }
-
         body {
             background: linear-gradient(135deg, #0a0a0a 0%, #1a0a1a 50%, #0a0a0a 100%);
             color: #e0e0e0;
@@ -23,8 +22,6 @@
             overflow-x: hidden;
             position: relative;
         }
-
-        /* Snow animation */
         .snow {
             position: fixed;
             top: -100px;
@@ -34,7 +31,6 @@
             pointer-events: none;
             z-index: 1;
         }
-
         .snowflake {
             position: absolute;
             color: rgba(255, 255, 255, 0.3);
@@ -43,7 +39,6 @@
             font-size: 14px;
             animation: fall linear infinite;
         }
-
         @keyframes fall {
             0% {
                 transform: translateY(-100px) translateX(0px);
@@ -54,8 +49,6 @@
                 opacity: 0;
             }
         }
-
-        /* Container and layout */
         .container {
             max-width: 800px;
             margin: 0 auto;
@@ -63,7 +56,6 @@
             position: relative;
             z-index: 2;
         }
-
         .title {
             text-align: center;
             font-size: 3.5em;
@@ -71,12 +63,10 @@
             text-shadow: 3px 3px 0px #ff0000, -3px -3px 0px #00ffff;
             position: relative;
         }
-
         .tree-emoji {
             font-size: 1.2em;
             filter: hue-rotate(120deg) brightness(0.8);
         }
-
         .subtitle {
             text-align: center;
             font-size: 1.2em;
@@ -84,7 +74,6 @@
             color: #888;
             text-shadow: 1px 1px 2px #000;
         }
-
         .story-content {
             background: rgba(0, 0, 0, 0.7);
             padding: 30px;
@@ -92,37 +81,30 @@
             box-shadow: 0 0 30px rgba(255, 0, 0, 0.1);
             border: 1px solid rgba(255, 255, 255, 0.1);
         }
-
         .story-content p {
             margin-bottom: 20px;
             font-size: 1.1em;
             text-shadow: 1px 1px 1px #000;
         }
-
-        /* Glitch effects */
         .glitch {
             position: relative;
             color: #fff;
             animation: glitch 2s infinite;
         }
-
         .glitch-emphasis {
             color: #ff4444;
             font-weight: bold;
             text-shadow: 2px 0 #ff0000, -2px 0 #00ffff;
         }
-
         .glitch-thought {
             color: #ffaa00;
             font-style: italic;
             text-shadow: 1px 1px 3px #000;
         }
-
         .glitch-memory {
             color: #aa88ff;
             text-shadow: 0 0 5px #aa88ff;
         }
-
         @keyframes glitch {
             0%, 98% {
                 text-shadow: 3px 3px 0px #ff0000, -3px -3px 0px #00ffff;
@@ -134,8 +116,6 @@
                 text-shadow: 3px -3px 0px #ff0000, -3px 3px 0px #00ffff;
             }
         }
-
-        /* Cursor trail */
         .cursor-trail {
             position: absolute;
             width: 6px;
@@ -146,7 +126,6 @@
             animation: fade-out 0.5s ease-out forwards;
             z-index: 1000;
         }
-
         @keyframes fade-out {
             from {
                 opacity: 1;
@@ -157,8 +136,6 @@
                 transform: scale(0);
             }
         }
-
-        /* Music controls */
         .music-controls {
             position: fixed;
             bottom: 20px;
@@ -172,7 +149,6 @@
             border-radius: 5px;
             border: 1px solid rgba(255, 255, 255, 0.2);
         }
-
         .music-btn {
             background: #222;
             color: #fff;
@@ -184,30 +160,24 @@
             cursor: pointer;
             transition: all 0.3s;
         }
-
         .music-btn:hover {
             background: #333;
             border-color: #777;
         }
-
         .music-btn.playing {
             background: #004400;
             border-color: #00aa00;
             color: #00ff00;
         }
-
         .volume-slider {
             width: 80px;
             accent-color: #ff4444;
         }
-
         .volume-label {
             color: #ccc;
             font-size: 12px;
             font-family: 'VT323', monospace;
         }
-
-        /* Music info popup */
         .music-info {
             position: fixed;
             top: 20px;
@@ -226,11 +196,9 @@
             position: relative;
             overflow: hidden;
         }
-
         .music-info.show {
             transform: translateX(0);
         }
-
         .music-info-scanlines {
             position: absolute;
             top: 0;
@@ -246,18 +214,16 @@
             );
             pointer-events: none;
         }
-
         .music-info-static {
             position: absolute;
             top: 0;
             left: 0;
             right: 0;
             bottom: 0;
-            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><filter id="noise"><feTurbulence baseFrequency="0.9" numOctaves="4" stitchTiles="stitch"/></filter></defs><rect width="100%" height="100%" filter="url(%23noise)" opacity="0.02"/></svg>');
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><filter id="noise"><feTurbulence baseFrequency="0.9" numOctaves="4" stitchTiles[...]');
             pointer-events: none;
             animation: static 0.1s infinite;
         }
-
         @keyframes static {
             0% { transform: translate(0, 0); }
             10% { transform: translate(-1px, 1px); }
@@ -271,8 +237,6 @@
             90% { transform: translate(0px, 1px); }
             100% { transform: translate(0px, 0px); }
         }
-
-        /* === CREEPY GLITCHED WINGDINGS FINAL LINE === */
         .final-creepy-line {
             display: flex;
             justify-content: center;
@@ -293,7 +257,6 @@
                 color 0.23s cubic-bezier(.5,2,.3,1), 
                 filter 0.12s, 
                 transform 0.13s cubic-bezier(.5,2,.3,1);
-            /* Glitch shadow for normal state */
             text-shadow: 1px 0 5px #000, 0 1px 8px #ff0000;
         }
         .final-creepy-line .shake {
@@ -335,14 +298,11 @@
             color: #fffbe8 !important;
             filter: blur(0.7px);
         }
-        /* Optional: subtle fade for the whole line during swaps */
         .final-creepy-line.fading {
             opacity: 0.75;
             filter: blur(1.5px) grayscale(0.15);
             transition: opacity 0.24s, filter 0.2s;
         }
-
-        /* Hide the fallback text for accessibility but keep it for screen readers */
         .final-creepy-line .sr-only {
             position: absolute;
             left: -9999px;
@@ -350,8 +310,6 @@
             height: 1px;
             overflow: hidden;
         }
-
-        /* Responsive design */
         @media (max-width: 768px) {
             .title {
                 font-size: 2.5em;
@@ -383,7 +341,7 @@
             <p>The air is quiet, except it isn't. Something hums. Or buzzes. Or rings.</p>
             <p>You blink.</p>
             <p><span class="glitch-thought">"There is a man here."</span></p>
-            <p>That thought doesn't belong to you. Not really. But it's there, like it's always been there, stapled to the back of your eyes. You're standing in front of the big pine behind the school[...]</p>
+            <p>That thought doesn't belong to you. Not really. But it's there, like it's always been there, stapled to the back of your eyes. You're standing in front of the big pine behind the school[...]
             <p><span class="glitch-thought">"There is a man here."</span></p>
             <p>Your hands are cold. One of them is holding something.</p>
             <p><span class="glitch-emphasis">You don't look.</span></p>
@@ -393,13 +351,13 @@
             <p>No… no. That's not right.</p>
             <p><span class="glitch-memory">She was crying.</span></p>
             <p>Yes. She was. Behind you. In front of you. By the tree. It's hard to say. The sound's long gone, but the echo's still fresh, like steam in winter.</p>
-            <p>The grass is bent where she stood. You think it was her. <span class="glitch-memory">Antlers like candle branches. Shoulders curled in.</span> She kept looking at you, but you couldn't [...]</p>
+            <p>The grass is bent where she stood. You think it was her. <span class="glitch-memory">Antlers like candle branches. Shoulders curled in.</span> She kept looking at you, but you couldn't [...]
             <p><span class="glitch-emphasis">Or maybe you let go.</span></p>
             <p>You can't stop looking at the tree.</p>
             <p>There's a shape behind it. Not moving. Not breathing. Not—</p>
             <p><span class="glitch">No, wait.</span></p>
             <p><span class="glitch-memory">It was moving. It was breathing.</span></p>
-            <p>You don't remember seeing its face. But you remember it having one. You remember the way it pressed against the bark, like it wanted to disappear into it. Like it was listening. Or wait[...]</p>
+            <p>You don't remember seeing its face. But you remember it having one. You remember the way it pressed against the bark, like it wanted to disappear into it. Like it was listening. Or wait[...]
             <p><span class="glitch-memory">Dess was afraid. She tugged your sleeve.</span> <span class="glitch-emphasis">You didn't move.</span></p>
             <p>You don't remember why you didn't move.</p>
             <p>Maybe you wanted to see what the man would do.</p>
@@ -420,7 +378,6 @@
             <div class="final-creepy-line" id="finalLine" aria-live="polite">
                 <!-- Accessible fallback for screen readers -->
                 <span class="sr-only">Behind you.</span>
-                <!-- Each character is separated so we can animate/shake/glitch them individually -->
                 <span class="char">B</span>
                 <span class="char">e</span>
                 <span class="char">h</span>
@@ -460,25 +417,48 @@
         // ==== Final Creepy Line Animation ====
         // "Behind you." => [Wingdings], "Find Her.", "Help Me.", then back, with per-letter shakes and glitch
 
-        // Unicode Wingdings mapping for "Behind you."
-        // Fallbacks will show normal letters if Wingdings is missing.
-        const wingdingsMap = {
-            'B': '👆', // pointing up
-            'e': '👁', // eye
-            'h': '⏰', // clock
-            'i': '❗', // exclamation
-            'n': '🔔', // bell
-            'd': '👇', // pointing down
+        // Undertale/DELTARUNE Wingdings mapping for "Behind you."
+        // Based on font: https://www.fontspace.com/wingdings-font-f11672 (classic Win95/Undertale style)
+        // These are Unicode codepoints that, when shown in Wingdings, look like Undertale's
+        // Wingdings text in Undertale for "Behind you." is "⍑𝙹∷⍜∴∷⊑ ⍜⍙." (using the fanmade font, but here we use typical available mappings)
+        // For best web compatibility, we'll use the most visually similar Unicode codepoints as in most Undertale fanfics:
+        const undertaleWingdingsMap = {
+            'B': '\u{25A1}', // □
+            'e': '\u{25A0}', // ■
+            'h': '\u{25C6}', // ◆
+            'i': '\u{25C7}', // ◇
+            'n': '\u{25CB}', // ○
+            'd': '\u{25CF}', // ●
             ' ': '\u00A0',
-            'y': '💀', // skull
-            'o': '👍', // thumb up
-            'u': '😊', // smiley
-            '.': '●'  // black circle
+            'y': '\u{2605}', // ★
+            'o': '\u{2666}', // ♦
+            'u': '\u{25B2}', // ▲
+            '.': '\u{2022}'  // •
         };
-        
-        // For fallback, just in case, fallback to normal letter.
-        function toWingdings(char) {
-            return wingdingsMap[char] || char;
+        // For true Undertale flavor, you could use: ['⍑','𝙹','∷','⍜','∴','∷','⊑','⍜','⍙','.']
+        // but not all browsers/devices support those.
+        // If you want the exact Undertale-style, use the below string for "Behind you."
+        const undertaleWingdingsString = [
+            '\u2d51', // ⍑
+            '\ud835\ude39', // 𝙹
+            '\u2237', // ∷
+            '\u2d5c', // ⍜
+            '\u2234', // ∴
+            '\u2237', // ∷
+            '\u2291', // ⊑
+            '\u00A0',
+            '\u2d5c', // ⍜
+            '\u2d59', // ⍙
+            '\u002e'
+        ];
+        // We'll use this string for best authenticity, falling back to the previous map if needed.
+        function toUndertaleWingdings(char, idx) {
+            // Try using the exact string for "Behind you."
+            if (typeof undertaleWingdingsString[idx] !== "undefined") {
+                return undertaleWingdingsString[idx];
+            }
+            // Fallback to basic shapes
+            return undertaleWingdingsMap[char] || char;
         }
 
         const finalLine = document.getElementById('finalLine');
@@ -489,7 +469,7 @@
                 text: "Behind you.",
                 mode: "normal"
             },
-            { // 1: Wingdings
+            { // 1: Wingdings (Undertale style)
                 text: "Behind you.",
                 mode: "wingdings"
             },
@@ -538,10 +518,10 @@
                 span.classList.remove('wingdings', 'glitch', 'shake', 'whisper');
                 // Wingdings state
                 if (state.mode === 'wingdings') {
-                    // Only apply to non-space
                     if (state.text[i] !== ' ') {
                         span.classList.add('wingdings');
-                        span.textContent = toWingdings(state.text[i]);
+                        // Use real Undertale Wingdings
+                        span.textContent = toUndertaleWingdings(state.text[i], i);
                     }
                 }
                 // Glitch state
@@ -563,7 +543,6 @@
             const spans = finalLine.querySelectorAll('.char');
             if (currentState === 0 || currentState === 1) {
                 spans.forEach(span => {
-                    // Low chance of shake on each frame
                     if (Math.random() > 0.91 && span.textContent.trim() !== '') {
                         span.classList.add('shake');
                         setTimeout(() => span.classList.remove('shake'), 140 + Math.random()*120);
@@ -575,7 +554,6 @@
         // Swap states on a timer
         let swapTimer = null;
         function nextFinalState() {
-            // Weighted: Main state (Behind you.) is longer, glitches and wingdings are flashes
             let delay;
             if (currentState === 0) { // Normal to Wingdings
                 currentState = 1;
@@ -590,12 +568,10 @@
                 currentState = 0;
                 delay = 2600 + Math.random()*2000;
             }
-            // Fade out/in between certain swaps for creepiness
             let fade = (currentState === 1 || currentState === 0);
             updateFinalLine(currentState, fade);
             swapTimer = setTimeout(nextFinalState, delay);
         }
-        // Start animation
         updateFinalLine(0);
         swapTimer = setTimeout(nextFinalState, 2600 + Math.random()*2200);
         setInterval(jitterFinalLine, 68);
@@ -604,35 +580,27 @@
         function createSnow() {
             const snow = document.getElementById('snow');
             const snowflakeCount = 80;
-            
             for (let i = 0; i < snowflakeCount; i++) {
                 const snowflake = document.createElement('div');
                 snowflake.className = 'snowflake';
-                
-                // Mix of different snowflake characters for variety
                 const snowflakeTypes = ['❄', '❅', '❆', '*', '·', '✦'];
                 snowflake.innerHTML = snowflakeTypes[Math.floor(Math.random() * snowflakeTypes.length)];
-                
                 snowflake.style.left = Math.random() * 100 + '%';
                 snowflake.style.animationDuration = (Math.random() * 4 + 3) + 's';
                 snowflake.style.animationDelay = Math.random() * 5 + 's';
-                
-                // Add slight horizontal drift
                 snowflake.style.setProperty('--drift', (Math.random() - 0.5) * 100 + 'px');
-                
                 snow.appendChild(snowflake);
             }
         }
 
         // Cursor trail effect
         document.addEventListener('mousemove', function(e) {
-            if (Math.random() > 0.8) { // Only create trail sometimes for creepy effect
+            if (Math.random() > 0.8) {
                 const trail = document.createElement('div');
                 trail.className = 'cursor-trail';
                 trail.style.left = e.pageX + 'px';
                 trail.style.top = e.pageY + 'px';
                 document.body.appendChild(trail);
-                
                 setTimeout(() => {
                     if (document.body.contains(trail)) {
                         document.body.removeChild(trail);
@@ -645,16 +613,13 @@
         function corruptText() {
             const textElements = document.querySelectorAll('.story-content p');
             const randomElement = textElements[Math.floor(Math.random() * textElements.length)];
-            
-            if (Math.random() > 0.95) { // Very rare corruption
+            if (Math.random() > 0.95) {
                 const originalHTML = randomElement.innerHTML;
                 const textContent = randomElement.textContent;
                 const corruptedText = textContent.split('').map(char => {
                     return Math.random() > 0.95 ? '█' : char;
                 }).join('');
-                
                 randomElement.textContent = corruptedText;
-                
                 setTimeout(() => {
                     randomElement.innerHTML = originalHTML;
                 }, 100);
@@ -665,8 +630,6 @@
         function glitchMusicInfo() {
             const musicInfo = document.getElementById('musicInfo');
             if (!musicInfo.classList.contains('show')) return;
-            
-            // Randomly shift the popup position, scale, and rotate slightly
             if (Math.random() > 0.8) {
                 const dx = (Math.random() - 0.5) * 12;
                 const dy = (Math.random() - 0.5) * 10;
@@ -676,8 +639,6 @@
             } else {
                 musicInfo.style.transform = 'translateX(0)';
             }
-            
-            // Chance to corrupt text
             if (Math.random() > 0.93) {
                 let txt = musicInfo.getAttribute("data-text");
                 const corruptionChars = ['█', '▓', '▒', '░', '҉', 'Ì·', 'Ì¸', 'Ì€', 'Ì'];
@@ -692,12 +653,9 @@
                 musicInfo.innerHTML = corrupted +
                     '<div class="music-info-scanlines"></div><div class="music-info-static"></div>';
             } else {
-                // Reset to normal text
                 musicInfo.innerHTML = musicInfo.getAttribute("data-text") +
                     '<div class="music-info-scanlines"></div><div class="music-info-static"></div>';
             }
-            
-            // Rarely play a static sound (simplified for compatibility)
             if (Math.random() > 0.995) {
                 try {
                     if (window.AudioContext || window.webkitAudioContext) {
@@ -721,7 +679,6 @@
             }
         }
 
-        // Initialize effects
         createSnow();
         setInterval(corruptText, 3000);
         setInterval(glitchMusicInfo, 80);
@@ -733,11 +690,8 @@
         const musicToggle = document.getElementById('musicToggle');
         const volumeSlider = document.getElementById('volumeSlider');
         const musicInfo = document.getElementById('musicInfo');
-
-        // Set initial volume (30%)
         audio.volume = 0.3;
 
-        // Toggle music on/off
         musicToggle.addEventListener('click', function() {
             if (musicPlaying) {
                 audio.pause();
@@ -750,7 +704,6 @@
                     musicToggle.textContent = '♫ Music: ON';
                     musicToggle.classList.add('playing');
                     musicInfo.classList.add('show');
-                    // Reset text to prevent stuck corruption
                     musicInfo.innerHTML = musicInfo.getAttribute("data-text") +
                         '<div class="music-info-scanlines"></div><div class="music-info-static"></div>';
                     musicPlaying = true;
@@ -760,12 +713,10 @@
             }
         });
 
-        // Volume control
         volumeSlider.addEventListener('input', function() {
             audio.volume = this.value / 100;
         });
 
-        // Auto-enable music on first user interaction
         document.addEventListener('click', function() {
             if (!userInteracted && !musicPlaying) {
                 userInteracted = true;
@@ -782,20 +733,17 @@
             }
         }, { once: true });
 
-        // Hide music info after 5 seconds
         audio.addEventListener('play', function() {
             setTimeout(() => {
                 musicInfo.classList.remove('show');
             }, 5000);
         });
 
-        // Handle audio errors
         audio.addEventListener('error', function(e) {
             musicToggle.textContent = '♫ Music: ERROR';
             console.log('Error loading audio file:', e);
         });
 
-        // Try to autoplay on load
         window.addEventListener('load', function() {
             audio.volume = 0.3;
             audio.play().then(() => {
