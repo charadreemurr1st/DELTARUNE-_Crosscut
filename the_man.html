@@ -7,115 +7,256 @@
     <link rel="icon" type="image/x-icon" href="ice.ico">
     <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
     <style>
-        /* ...existing styles... */
+        /* Reset and base styles */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
+        html, body {
+            height: 100%;
+            min-height: 100vh;
+        }
         body {
             background: linear-gradient(135deg, #0a0a0a 0%, #1a0a1a 50%, #0a0a0a 100%);
             color: #e0e0e0;
             font-family: 'VT323', monospace;
-            font-size: 18px;
-            line-height: 1.6;
+            font-size: 20px;
+            line-height: 1.7;
             min-height: 100vh;
             overflow-x: hidden;
             position: relative;
         }
+        /*--- Snowflake Animation ---*/
         .snow {
             position: fixed;
-            top: -100px;
+            top: 0;
             left: 0;
-            width: 100%;
+            width: 100vw;
             height: 100vh;
             pointer-events: none;
-            z-index: 1;
+            z-index: 2;
+            pointer-events: none;
         }
-        /* ...other existing styles... */
+        .snowflake {
+            position: absolute;
+            top: -30px;
+            color: #fff;
+            font-size: 1.5em;
+            user-select: none;
+            opacity: 0.7;
+            animation: snowFall linear infinite;
+            will-change: transform;
+        }
+        @keyframes snowFall {
+            to {
+                transform: translateY(110vh) translateX(var(--drift, 0px));
+                opacity: 0.85;
+            }
+        }
+
+        /*--- Cursor Trail ---*/
+        .cursor-trail {
+            position: fixed;
+            pointer-events: none;
+            width: 12px;
+            height: 12px;
+            background: radial-gradient(circle at 6px 6px, #ff4444 80%, transparent 100%);
+            opacity: 0.25;
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 9999;
+            animation: fadeTrail 0.5s linear;
+        }
+        @keyframes fadeTrail {
+            from { opacity: 0.25; }
+            to { opacity: 0; }
+        }
+
+        /*--- Container & Story ---*/
+        .container {
+            max-width: 750px;
+            margin: 60px auto 0 auto;
+            background: rgba(0,0,0,0.72);
+            border: 2px solid #252525;
+            border-radius: 14px;
+            box-shadow: 0 6px 40px 0 #000b, 0 1.5px 0 #ff444462;
+            padding: 32px 30px 32px 30px;
+            position: relative;
+            z-index: 10;
+        }
+        .title {
+            font-size: 3em;
+            text-align: center;
+            margin-bottom: 12px;
+            letter-spacing: 2px;
+            text-shadow: 2px 4px 18px #0a0, 0 0 5px #fff1;
+        }
+        .tree-emoji {
+            font-size: 1.1em;
+            filter: drop-shadow(0 1px 3px #0a0a0a);
+        }
+        .subtitle {
+            text-align: center;
+            font-size: 1.3em;
+            color: #ff4444;
+            margin-bottom: 28px;
+            opacity: 0.92;
+        }
+        .story-content {
+            font-size: 1.18em;
+            background: rgba(25, 0, 25, 0.13);
+            border-radius: 7px;
+            padding: 26px 18px 18px 18px;
+            color: #e7e7e7;
+            box-shadow: 0 1px 8px #2f0a1a22;
+        }
+        .glitch-emphasis {
+            color: #ff4444;
+            text-shadow: 1px 0 3px #fff, 0 0 6px #ff444488;
+            letter-spacing: 1.5px;
+            font-size: 1.1em;
+        }
+        .final-creepy-line {
+            margin-top: 44px;
+            text-align: center;
+            font-size: 2em;
+            letter-spacing: 0.18em;
+            color: #ff4444;
+            text-shadow: 0 0 5px #000, 0 0 15px #ff444466;
+            user-select: none;
+        }
+        .final-creepy-line .char {
+            display: inline-block;
+            transition: transform 0.2s;
+        }
+        .final-creepy-line .char:hover {
+            transform: scale(1.27) rotate(-7deg);
+            color: #fff;
+            text-shadow: 0 0 16px #ff4444, 0 0 4px #fff;
+        }
+        .sr-only {
+            position: absolute;
+            left: -10000px;
+            width: 1px;
+            height: 1px;
+            overflow: hidden;
+        }
+
+        /*--- Music Controls ---*/
         .music-controls {
             position: fixed;
-            top: 20px;
-            right: 20px;
-            z-index: 1000;
-            background: rgba(0, 0, 0, 0.8);
+            top: 26px;
+            right: 32px;
+            z-index: 1100;
+            background: rgba(0, 0, 0, 0.88);
             border: 2px solid #333;
-            padding: 10px;
+            border-radius: 9px;
+            padding: 11px 16px 11px 13px;
             display: flex;
             align-items: center;
-            gap: 10px;
-            font-size: 0.9em;
+            gap: 12px;
+            font-size: 1em;
+            box-shadow: 0 2px 12px #0007;
         }
         .music-btn {
             background: #222;
             color: #fff;
             border: 1px solid #555;
-            padding: 8px 12px;
-            border-radius: 3px;
+            padding: 8px 16px;
+            border-radius: 5px;
             font-family: 'VT323', monospace;
-            font-size: 14px;
+            font-size: 1em;
             cursor: pointer;
             transition: all 0.3s;
+            outline: none;
         }
-        .music-btn:hover, .music-btn.playing {
+        .music-btn:hover,
+        .music-btn.playing {
             background: #004400;
             border-color: #00aa00;
             color: #00ff00;
         }
+        .music-btn:active {
+            background: #222;
+            color: #ff4444;
+        }
         .volume-slider {
-            width: 80px;
+            width: 100px;
             accent-color: #ff4444;
         }
         .volume-label {
             color: #ccc;
-            font-size: 12px;
+            font-size: 14px;
             font-family: 'VT323', monospace;
         }
         .music-info {
             position: fixed;
             bottom: 20px;
-            left: 20px;
-            background: rgba(0, 0, 0, 0.9);
+            left: 50%;
+            transform: translateX(-50%) translateY(24px);
+            background: rgba(0, 0, 0, 0.95);
             border: 2px solid #ff4444;
-            padding: 10px 15px;
-            font-size: 0.9em;
+            border-radius: 6px;
+            padding: 11px 22px;
+            font-size: 1em;
             color: #ff4444;
             opacity: 0;
-            transform: translateY(20px);
-            transition: all 0.5s ease;
-            z-index: 1000;
+            transition: all 0.5s cubic-bezier(.25,.8,.25,1);
+            z-index: 1100;
+            pointer-events: none;
         }
         .music-info.show {
             opacity: 1;
-            transform: translateY(0);
+            transform: translateX(-50%) translateY(0);
         }
-        /* ...keep all other styles unchanged... */
-        @media (max-width: 768px) {
-            .title {
-                font-size: 2.5em;
-            }
+
+        /*--- Responsive Design ---*/
+        @media (max-width: 900px) {
             .container {
-                padding: 15px;
-            }
-            .story-content {
-                padding: 20px;
+                margin: 38px 12px 0 12px;
+                padding: 18px 7vw 18px 7vw;
             }
             .music-controls {
-                top: 10px;
                 right: 10px;
-                padding: 8px;
-                gap: 8px;
+                top: 12px;
+                padding: 7px 11px 7px 9px;
+                gap: 7px;
+                font-size: 0.95em;
             }
             .music-info {
-                left: 10px;
-                bottom: 10px;
-                font-size: 0.85em;
+                padding: 9px 10vw;
+                font-size: 0.96em;
+            }
+        }
+        @media (max-width: 600px) {
+            body {
+                font-size: 17px;
+            }
+            .container {
+                margin: 16vw 2vw 0 2vw;
+                padding: 7vw 2vw 9vw 2vw;
+            }
+            .title {
+                font-size: 2.1em;
+            }
+            .music-controls {
+                top: 4vw;
+                right: 2vw;
+                padding: 6px 7px 6px 6px;
+            }
+            .music-info {
+                left: 5vw;
+                right: 5vw;
+                transform: none;
+                font-size: 0.91em;
+                padding: 7px 6vw;
             }
         }
     </style>
 </head>
 <body>
-    <div class="snow" id="snow"></div>
+    <div class="snow" id="snow" aria-hidden="true"></div>
     
     <div class="container">
         <h1 class="title glitch"><span class="tree-emoji">🌲</span> "The Man Behind the Tree"</h1>
@@ -151,7 +292,7 @@
 
     <div class="music-controls">
         <button id="musicToggle" class="music-btn">♫ Music: OFF</button>
-        <input type="range" id="volumeSlider" min="0" max="100" value="30" class="volume-slider">
+        <input type="range" id="volumeSlider" min="0" max="100" value="30" class="volume-slider" aria-label="Volume">
         <span class="volume-label">Vol</span>
     </div>
 
@@ -161,9 +302,9 @@
 
     <script>
         // ==== Final Creepy Line Animation ====
-        // ...existing creepy line animation code unchanged...
+        // (Assuming actual animation for .final-creepy-line is handled elsewhere if desired)
 
-        // Create falling snow
+        // --- Falling Snow ---
         function createSnow() {
             const snow = document.getElementById('snow');
             const snowflakeCount = 80;
@@ -173,16 +314,17 @@
                 const snowflakeTypes = ['❄', '❅', '❆', '*', '·', '✦'];
                 snowflake.innerHTML = snowflakeTypes[Math.floor(Math.random() * snowflakeTypes.length)];
                 snowflake.style.left = Math.random() * 100 + '%';
-                snowflake.style.animationDuration = (Math.random() * 4 + 3) + 's';
-                snowflake.style.animationDelay = Math.random() * 5 + 's';
-                snowflake.style.setProperty('--drift', (Math.random() - 0.5) * 100 + 'px');
+                // Animation timing
+                snowflake.style.animationDuration = (Math.random() * 3 + 4.5) + 's';
+                snowflake.style.animationDelay = Math.random() * 4 + 's';
+                snowflake.style.setProperty('--drift', (Math.random() - 0.5) * 140 + 'px');
                 snow.appendChild(snowflake);
             }
         }
 
-        // Cursor trail effect
+        // --- Cursor Trail Effect ---
         document.addEventListener('mousemove', function(e) {
-            if (Math.random() > 0.8) {
+            if (Math.random() > 0.83) {
                 const trail = document.createElement('div');
                 trail.className = 'cursor-trail';
                 trail.style.left = e.pageX + 'px';
@@ -196,9 +338,10 @@
             }
         });
 
-        // Random text corruption
+        // --- Random Text Corruption ---
         function corruptText() {
             const textElements = document.querySelectorAll('.story-content p');
+            if (textElements.length === 0) return;
             const randomElement = textElements[Math.floor(Math.random() * textElements.length)];
             if (Math.random() > 0.95) {
                 const originalHTML = randomElement.innerHTML;
@@ -216,7 +359,7 @@
         createSnow();
         setInterval(corruptText, 3000);
 
-        // --- Music system (matching index.html) ---
+        // --- Music System ---
         let musicPlaying = false;
         let userInteracted = false;
         const audio = document.getElementById('backgroundMusic');
@@ -262,13 +405,14 @@
                     musicInfo.classList.add('show');
                     musicPlaying = true;
                 }).catch(e => {
-                    console.log('Auto-play failed:', e);
+                    // Do nothing
                 });
             }
         }, { once: true });
 
         // Hide music info after 5 seconds
         audio.addEventListener('play', function() {
+            musicInfo.classList.add('show');
             setTimeout(() => {
                 musicInfo.classList.remove('show');
             }, 5000);
@@ -277,6 +421,9 @@
         // Handle audio errors
         audio.addEventListener('error', function(e) {
             musicToggle.textContent = '♫ Music: ERROR';
+            musicToggle.classList.remove('playing');
+            musicInfo.classList.remove('show');
+            musicPlaying = false;
             console.log('Error loading audio file:', e);
         });
 
@@ -289,7 +436,7 @@
                 musicInfo.classList.add('show');
                 musicPlaying = true;
             }).catch(function(error) {
-                // Autoplay prevented, do nothing
+                // Autoplay prevented - do nothing
             });
         });
     </script>
