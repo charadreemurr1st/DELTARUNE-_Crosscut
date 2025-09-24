@@ -77,7 +77,7 @@
         .container {
             max-width: 750px;
             margin: 60px auto 0 auto;
-            background: rgba(0,0,0,0.72);
+            background: rgba(10, 0, 10, 0.82);
             border: 2px solid #252525;
             border-radius: 14px;
             box-shadow: 0 6px 40px 0 #000b, 0 1.5px 0 #ff444462;
@@ -105,7 +105,7 @@
         }
         .story-content {
             font-size: 1.18em;
-            background: rgba(25, 0, 25, 0.13);
+            background: rgba(25, 0, 25, 0.22);
             border-radius: 7px;
             padding: 26px 18px 18px 18px;
             color: #e7e7e7;
@@ -263,9 +263,79 @@
         <div class="subtitle">POV: Kris | Genre: Psychological Horror | Deltarune Fan Story</div>
         
         <div class="story-content">
-            <!-- ...story content unchanged... -->
             <p><span class="glitch-emphasis">You shouldn't be here.</span></p>
-            <!-- ...rest of story content... -->
+            
+            <p>But your feet are already in the dirt. Knees bent slightly. Hands slack. Bark under your nails. You don't remember walking up to the tree, but here it is. Here you are.</p>
+            
+            <p>The air is quiet, except it isn't. Something hums. Or buzzes. Or rings.</p>
+            
+            <p>You blink.</p>
+            
+            <p style="text-align: center; font-style: italic; color: #ff6666; margin: 20px 0;"><span class="glitch-emphasis">"There is a man here."</span></p>
+            
+            <p>That thought doesn't belong to you. Not really. But it's there, like it's always been there, stapled to the back of your eyes. You're standing in front of the big pine behind the school—no. Not the school. This isn't the schoolyard. The trees are wrong here. Too tall. Too still.</p>
+            
+            <p style="text-align: center; font-style: italic; color: #ff6666; margin: 20px 0;"><span class="glitch-emphasis">"There is a man here."</span></p>
+            
+            <p>Your hands are cold. One of them is holding something.</p>
+            
+            <p>You don't look.</p>
+            
+            <p>You can't look.</p>
+            
+            <p>There's bark beneath your fingertips again. You were scratching. You think. Or maybe clawing. There's a small wound. Yours? Hers?</p>
+            
+            <p style="font-style: italic; color: #ffaaaa;">You were crying.</p>
+            
+            <p>No… no. That's not right.</p>
+            
+            <p style="font-style: italic; color: #ffaaaa;"><span class="glitch-emphasis">She was crying.</span></p>
+            
+            <p>Yes. She was. Behind you. In front of you. By the tree. It's hard to say. The sound's long gone, but the echo's still fresh, like steam in winter.</p>
+            
+            <p>The grass is bent where she stood. You think it was her. Antlers like candle branches. Shoulders curled in. She kept looking behind the tree. You don't remember what you were doing. Maybe you were holding her hand.</p>
+            
+            <p>Or maybe you let go.</p>
+            
+            <p>You can't stop looking at the tree.</p>
+            
+            <p>There's a shape behind it. Not moving. Not breathing. Not—</p>
+            
+            <p>No, wait.</p>
+            
+            <p><span class="glitch-emphasis">It was moving. It was breathing.</span></p>
+            
+            <p>You don't remember seeing its face. But you remember it having one. You remember the way it pressed against the bark, like it wanted to disappear into it. Like it was listening. Or waiting. Or hiding.</p>
+            
+            <p>Dess was afraid. She tugged your sleeve. You didn't move.</p>
+            
+            <p>You don't remember why you didn't move.</p>
+            
+            <p>Maybe you wanted to see what the man would do.</p>
+            
+            <p><span class="glitch-emphasis">You don't remember what he did.</span></p>
+            
+            <p>Just—</p>
+            
+            <p>Darkness. Like something closing. Like a lid. Like an eye.<br>
+            And then…</p>
+            
+            <p>You were standing alone.</p>
+            
+            <p>Your hand was empty. The wind was blowing. The sun was lower than it should've been.<br>
+            Your throat was dry and tight.</p>
+            
+            <p>No antlers. No guitar. No laughter.<br>
+            Just the tree. And you.</p>
+            
+            <p style="text-align: center; font-style: italic; color: #ff6666; margin: 20px 0;"><span class="glitch-emphasis">"Well. There was a man here."</span></p>
+            
+            <p>You're still not sure if that means he's gone.</p>
+            
+            <p>Or if he's just somewhere else now.</p>
+            
+            <p>Behind another tree.</p>
+            
             <div class="final-creepy-line" id="finalLine" aria-live="polite">
                 <span class="sr-only">Behind you.</span>
                 <span class="char">B</span>
@@ -301,9 +371,6 @@
     </div>
 
     <script>
-        // ==== Final Creepy Line Animation ====
-        // (Assuming actual animation for .final-creepy-line is handled elsewhere if desired)
-
         // --- Falling Snow ---
         function createSnow() {
             const snow = document.getElementById('snow');
@@ -405,7 +472,7 @@
                     musicInfo.classList.add('show');
                     musicPlaying = true;
                 }).catch(e => {
-                    // Do nothing
+                    // Silent fail for autoplay restrictions
                 });
             }
         }, { once: true });
@@ -418,7 +485,7 @@
             }, 5000);
         });
 
-        // Handle audio errors
+        // Handle audio errors gracefully
         audio.addEventListener('error', function(e) {
             musicToggle.textContent = '♫ Music: ERROR';
             musicToggle.classList.remove('playing');
@@ -427,7 +494,7 @@
             console.log('Error loading audio file:', e);
         });
 
-        // Show popup on load if music plays immediately (not likely on most browsers)
+        // Attempt autoplay on page load (will likely fail due to browser policies)
         window.addEventListener('load', function() {
             audio.volume = 0.3;
             audio.play().then(() => {
@@ -436,9 +503,9 @@
                 musicInfo.classList.add('show');
                 musicPlaying = true;
             }).catch(function(error) {
-                // Autoplay prevented - do nothing
+                // Autoplay prevented - this is expected behavior
             });
         });
     </script>
 </body>
-</html>
+    </html>
