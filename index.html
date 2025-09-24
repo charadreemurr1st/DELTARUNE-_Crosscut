@@ -98,11 +98,11 @@
             50% { transform: scale(1.1); }
         }
 
-        /* Hidden Pine Tree */
+        /* Hidden Pine Tree (inline version for title) */
         .hidden-pine {
-            position: absolute;
-            top: 10px;
-            right: 20px;
+            display: inline;
+            position: static;
+            vertical-align: middle;
             font-size: 1.2rem;
             color: #1a4a2e;
             cursor: pointer;
@@ -459,9 +459,8 @@
                 gap: 8px;
             }
 
+            /* Pine tree stays inline in title on mobile, font size scales with .title */
             .hidden-pine {
-                top: 5px;
-                right: 10px;
                 font-size: 1rem;
             }
         }
@@ -499,8 +498,11 @@
     
     <div class="container">
         <header class="header">
-            <a href="the_man.html" class="hidden-pine" title="There is a man here...">🌲</a>
-            <h1 class="title glitch-text">DELTARUNE: CROSSCUT</h1>
+            <h1 class="title glitch-text">
+              DELTARUNE:
+              <a href="the_man.html" class="hidden-pine" title="There is a man here...">🌲</a>
+              CROSSCUT
+            </h1>
             <p class="subtitle">A Post-Scratch DELTARUNE Modification</p>
             <p class="tagline">What happens when the story refuses to end... but breaks instead?</p>
         </header>
@@ -512,7 +514,7 @@
                     <div class="description">
                         <p>Susie wanted the story to stay the same forever. She got her wish... sort of.</p>
                         <br>
-                        <p>In DELTARUNE: Crosscut, a botched universe reset has left the world eerily familiar yet fundamentally changed. <span class="chara-text">Chara Dreemurr</span> now stands where Kris once did – a mischievous 15-and-a-half-year-old with a pair of <span class="scissors">scissors</span>, a love of chocolate, and a talent for pushing everyone's buttons.</p>
+                        <p>In DELTARUNE: Crosscut, a botched universe reset has left the world eerily familiar yet fundamentally changed. <span class="chara-text">Chara Dreemurr</span> now stands where Kris once did.</p>
                         <br>
                         <p>The pieces look the same, but they don't quite fit together anymore. And somewhere in the shadows lurks the <span class="glitch-text">Answer Of Fate</span>...</p>
                     </div>
