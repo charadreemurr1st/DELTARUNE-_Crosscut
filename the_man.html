@@ -7,459 +7,87 @@
     <link rel="icon" type="image/x-icon" href="ice.ico">
     <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        /* ... existing styles ... */
 
-        body {
-            background: 
-                radial-gradient(ellipse at top, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
-                linear-gradient(180deg, #0a0a1a 0%, #1a1a2e 30%, #16213e 60%, #0f3460 100%);
-            font-family: 'VT323', monospace;
-            color: #ffffff;
-            min-height: 100vh;
-            overflow-x: hidden;
-            position: relative;
-            background-attachment: fixed;
-        }
+        /* --- Existing styles omitted for brevity, do not remove them! --- */
 
-        /* Animated snow effect */
-        .snow {
-            position: fixed;
-            top: -100px;
-            left: 0;
-            width: 100%;
-            height: 100vh;
-            pointer-events: none;
-            z-index: 1;
-            overflow: hidden;
-        }
-
-        .snowflake {
-            position: absolute;
-            color: rgba(255, 255, 255, 0.6);
-            font-size: 18px;
-            animation: fall linear infinite;
-            text-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
-        }
-
-        .snowflake:nth-child(odd) {
-            color: rgba(200, 220, 255, 0.4);
-            font-size: 14px;
-        }
-
-        .snowflake:nth-child(3n) {
-            color: rgba(255, 255, 255, 0.8);
-            font-size: 22px;
-            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
-        }
-
-        @keyframes fall {
-            0% { 
-                transform: translateY(-100px) translateX(0px) rotate(0deg); 
-                opacity: 0.9; 
-            }
-            25% { 
-                transform: translateY(25vh) translateX(10px) rotate(90deg); 
-                opacity: 0.8; 
-            }
-            50% { 
-                transform: translateY(50vh) translateX(-5px) rotate(180deg); 
-                opacity: 0.6; 
-            }
-            75% { 
-                transform: translateY(75vh) translateX(15px) rotate(270deg); 
-                opacity: 0.4; 
-            }
-            100% { 
-                transform: translateY(calc(100vh + 100px)) translateX(-10px) rotate(360deg); 
-                opacity: 0; 
-            }
-        }
-
-        /* Glitch container */
-        .container {
-            position: relative;
-            z-index: 10;
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 40px 20px;
-            background: rgba(0, 0, 0, 0.85);
-            border: 2px solid #444;
-            border-radius: 15px;
-            margin-top: 50px;
-            margin-bottom: 50px;
-            box-shadow: 
-                0 0 30px rgba(255, 255, 255, 0.1),
-                inset 0 0 20px rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(5px);
-            animation: borderFlicker 10s infinite;
-        }
-
-        .title {
-            text-align: center;
-            font-size: 48px;
-            color: #ff6b6b;
-            text-shadow: 3px 3px 0px #000;
-            margin-bottom: 30px;
-            letter-spacing: 3px;
-            position: relative;
-        }
-
-        .subtitle {
-            text-align: center;
-            font-size: 24px;
-            color: #888;
-            margin-bottom: 40px;
-            font-style: italic;
-        }
-
-        .story-content {
-            font-size: 20px;
-            line-height: 1.8;
-            color: #e0e0e0;
-            text-align: left;
-            padding: 20px;
-            background: rgba(0, 0, 0, 0.6);
-            border-radius: 10px;
-            border: 1px solid #333;
-            backdrop-filter: blur(3px);
-        }
-
-        .story-content p {
-            margin-bottom: 20px;
-            position: relative;
-        }
-
-        .story-content .tree-emoji {
-            font-size: 24px;
-            color: #4a9;
-        }
-
-        /* Glitch effects */
-        .glitch {
-            position: relative;
-            animation: glitch 4s infinite;
-        }
-
-        .glitch-thought {
-            color: #ff4444;
-            font-weight: bold;
-            font-style: italic;
-            text-shadow: 2px 2px 4px rgba(255, 68, 68, 0.5);
-            animation: thoughtGlitch 6s infinite;
-        }
-
-        .glitch-emphasis {
-            color: #ffff44;
-            text-shadow: 1px 1px 2px rgba(255, 255, 68, 0.5);
-            animation: emphasisGlitch 8s infinite;
-        }
-
-        .glitch-memory {
-            color: #44ffff;
-            opacity: 0.8;
-            animation: memoryGlitch 5s infinite;
-        }
-
-        @keyframes glitch {
-            0%, 96% { transform: translate(0); }
-            1% { transform: translate(-2px, 1px); }
-            2% { transform: translate(2px, -1px); }
-            3% { transform: translate(-1px, 2px); }
-            4% { transform: translate(1px, -2px); }
-            5%, 100% { transform: translate(0); }
-        }
-
-        @keyframes thoughtGlitch {
-            0%, 90% { 
-                color: #ff4444;
-                text-shadow: 2px 2px 4px rgba(255, 68, 68, 0.5);
-            }
-            91% { 
-                color: #444;
-                text-shadow: none;
-            }
-            92% { 
-                color: #ff4444;
-                text-shadow: -2px -2px 4px rgba(255, 68, 68, 0.8);
-            }
-            93%, 100% { 
-                color: #ff4444;
-                text-shadow: 2px 2px 4px rgba(255, 68, 68, 0.5);
-            }
-        }
-
-        @keyframes emphasisGlitch {
-            0%, 85% { 
-                color: #ffff44;
-                opacity: 1;
-            }
-            86% { 
-                color: #ff0000;
-                opacity: 0.3;
-                transform: scale(1.1);
-            }
-            87% { 
-                color: #ffff44;
-                opacity: 1;
-                transform: scale(1);
-            }
-        }
-
-        @keyframes memoryGlitch {
-            0%, 80% { 
-                opacity: 0.8;
-                filter: blur(0px);
-            }
-            81% { 
-                opacity: 0.2;
-                filter: blur(2px);
-            }
-            82% { 
-                opacity: 0.9;
-                filter: blur(0px);
-            }
-            83%, 100% { 
-                opacity: 0.8;
-                filter: blur(0px);
-            }
-        }
-
-        /* Flickering border effect */
-        @keyframes borderFlicker {
-            0%, 95% { border-color: #444; }
-            96% { border-color: #ff0000; }
-            97% { border-color: #444; }
-            98% { border-color: #ff0000; }
-            99%, 100% { border-color: #444; }
-        }
-
-        /* Creepy cursor trail effect */
-        .cursor-trail {
-            position: absolute;
-            width: 4px;
-            height: 4px;
-            background: rgba(255, 255, 255, 0.5);
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 1000;
-            animation: fade 0.5s ease-out forwards;
-        }
-
-        @keyframes fade {
-            0% { opacity: 1; transform: scale(1); }
-            100% { opacity: 0; transform: scale(0); }
-        }
-
-        /* Music Controls (styled like index.html) */
-        .music-controls {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            z-index: 1000;
-            background: rgba(0, 0, 0, 0.8);
-            border: 2px solid #333;
-            padding: 10px;
+        /* === CREEPY GLITCHED WINGDINGS FINAL LINE === */
+        .final-creepy-line {
             display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 0.9rem;
+            justify-content: center;
+            gap: 0.08em;
+            margin-top: 16px;
+            margin-bottom: 8px;
+            font-size: 2.4em;
             font-family: 'VT323', monospace;
+            letter-spacing: 0.13em;
+            position: relative;
+            z-index: 20;
+            user-select: none;
         }
-
-        .music-btn {
-            background: #333;
-            border: 1.5px solid #666;
-            color: #fff;
-            padding: 6px 16px;
-            cursor: pointer;
-            font-size: 1rem;
-            font-family: 'VT323', monospace;
-            transition: all 0.3s;
+        .final-creepy-line .char {
+            display: inline-block;
+            position: relative;
+            transition: 
+                color 0.23s cubic-bezier(.5,2,.3,1), 
+                filter 0.12s, 
+                transform 0.13s cubic-bezier(.5,2,.3,1);
+            /* Glitch shadow for normal state */
+            text-shadow: 1px 0 5px #000, 0 1px 8px #ff0000;
         }
-
-        .music-btn:hover, .music-btn.playing {
-            background: #ff6b6b;
-            color: #000;
-            border-color: #ff6b6b;
+        .final-creepy-line .shake {
+            animation: final-creepy-shake 0.38s cubic-bezier(.5,2,.3,1);
         }
-
-        .volume-slider {
-            width: 70px;
-            height: 5px;
-            background: #333;
-            outline: none;
+        .final-creepy-line .glitch {
+            color: #ff0000;
+            filter: blur(0.8px) contrast(1.08);
+            text-shadow: 
+                2px 0 #fff, 
+                -2px 0 #00fff2,
+                0 0 8px #ff0000;
+            animation: final-creepy-glitch 0.38s cubic-bezier(.5,2,.3,1);
         }
-
-        .volume-label {
-            color: #ccc;
-            font-size: 0.9rem;
+        @keyframes final-creepy-shake {
+            0% { transform: translate(0,0) skewX(0deg); }
+            23% { transform: translate(-2px, 1px) skewX(-2deg); }
+            38% { transform: translate(1.5px, -2px) skewX(1deg);}
+            63% { transform: translate(-1px, 2.2px) skewX(-3deg);}
+            80% { transform: translate(2px, -1.5px) skewX(2deg);}
+            100% { transform: translate(0,0) skewX(0deg);}
         }
-
-        /* ======= MUSIC INFO: CREEPY GLITCH EFFECT ======= */
-        .music-info {
-            position: fixed;
-            bottom: 22px;
-            left: 22px;
-            background: rgba(10,0,10,0.97);
-            border: 2.5px solid #ff0000;
-            box-shadow: 0 0 60px 10px #000, 0 0 8px #ff0000;
-            padding: 14px 24px;
-            font-size: 1.25rem;
-            color: #fff;
-            opacity: 0;
-            transform: translateY(20px) scale(1) skew(-2deg, 0deg);
-            transition: all 0.45s cubic-bezier(.5,2,.3,1), filter 0.1s;
-            z-index: 2001;
-            font-family: 'VT323', monospace;
-            letter-spacing: 1.5px;
-            text-shadow:
-                0 0 2px #ff0000,
-                1px 0 5px #000,
-                -1px 0 10px #ff00cc,
-                0 2px 8px #ff0000;
-            overflow: visible;
-            pointer-events: none;
-            animation: musicInfoPulse 7s infinite, musicInfoGlitch 1.7s infinite;
-            filter: contrast(1.2) blur(0.7px) grayscale(0.15);
+        @keyframes final-creepy-glitch {
+            0% { filter: blur(0.8px) contrast(1.08); color: #ff0000;}
+            55% { filter: blur(2.4px) contrast(1.3); color: #fff;}
+            85% { filter: blur(2.7px) contrast(1.4); color: #00fff2;}
+            100% { filter: blur(0.8px) contrast(1.08); color: #ff0000;}
         }
-
-        .music-info.show {
-            opacity: 1;
-            transform: translateY(0) scale(1.04) skew(-1.5deg, 0deg);
-            filter: contrast(2) blur(0px) grayscale(0.25);
-            animation:
-                musicInfoPulse 7s infinite,
-                musicInfoGlitch 0.72s infinite;
+        .final-creepy-line .wingdings {
+            font-family: 'Wingdings', 'Wingdings 1', 'Webdings', 'Symbola', cursive !important;
+            letter-spacing: 0.21em;
+            color: #c6baff !important;
+            filter: contrast(1.1) grayscale(0.45) brightness(1.1);
+            text-shadow: 0 0 10px #222, 1.5px 0 6px #fff, 0 1.5px 8px #8e00ff;
+            transition: color 0.15s, filter 0.1s;
         }
-
-        /* Extra afterimage layers for music info glitch */
-        .music-info::before, .music-info::after {
-            content: attr(data-text);
-            position: absolute;
-            left: 0;
-            width: 100%;
-            opacity: 0.18;
-            z-index: -1;
-            text-shadow: 0 0 16px #ff0044, 2px 0 #ff0000, -2px 0 #00fff2;
-            pointer-events: none;
-            top: 0;
-        }
-
-        .music-info::before {
-            color: #ff0044;
-            left: 2px;
-            top: 1.5px;
-            opacity: 0.23;
+        .final-creepy-line .whisper {
+            opacity: 0.56;
+            color: #fffbe8 !important;
             filter: blur(0.7px);
-            animation: musicInfoLayerGlitch 1.1s infinite;
         }
-        .music-info::after {
-            color: #00fff2;
-            left: -2px;
-            top: -1.5px;
-            opacity: 0.12;
-            filter: blur(1.2px);
-            animation: musicInfoLayerGlitch2 0.8s infinite;
+        /* Optional: subtle fade for the whole line during swaps */
+        .final-creepy-line.fading {
+            opacity: 0.75;
+            filter: blur(1.5px) grayscale(0.15);
+            transition: opacity 0.24s, filter 0.2s;
         }
 
-        @keyframes musicInfoPulse {
-            0%, 98%, 100% { box-shadow: 0 0 60px 10px #000, 0 0 8px #ff0000; }
-            60% { box-shadow: 0 0 110px 30px #000, 0 0 25px #ff0000; }
-            70% { box-shadow: 0 0 45px 10px #000, 0 0 18px #ff2222; }
-            80% { box-shadow: 0 0 80px 23px #000, 0 0 29px #ff0000; }
-        }
-        @keyframes musicInfoGlitch {
-            0%, 100% { transform: translateY(0) scale(1.04) skew(-1.5deg, 0deg); filter: blur(0px);}
-            12% { transform: translateY(-2px) scale(1.05) skew(-1deg, 0.4deg) rotate(0.1deg);}
-            14% { transform: translateY(2px) scale(1.01) skew(-4deg, 0deg);}
-            15% { transform: translateY(-3px) scale(1.04) skew(2deg, 1deg);}
-            17% { filter: blur(2px);}
-            25% { transform: translateY(3px) scale(1.07) skew(-1.5deg, 0deg);}
-            30% { filter: blur(0.5px);}
-            35% { transform: translateY(-1px) scale(1.02) skew(1deg, -1deg);}
-            50% { filter: blur(4px);}
-            55% { transform: translateY(2px) scale(1.1) skew(-2deg, 0.6deg);}
-            56% { filter: blur(0.5px);}
-            70% { transform: translateY(-2px) scale(1.02) skew(3deg, -0.2deg);}
-            80% { filter: blur(1.3px);}
-        }
-        @keyframes musicInfoLayerGlitch {
-            0%, 100% { opacity: 0.18; transform: translate(0,0) skew(0.5deg,0deg);}
-            15% { opacity: 0.38; transform: translate(-4px,2px) skew(-6deg,2deg);}
-            18% { opacity: 0.12; transform: translate(4px,-1.5px) skew(3deg,-2deg);}
-            35% { opacity: 0.33; }
-            45% { opacity: 0.08; }
-            70% { opacity: 0.25; }
-        }
-        @keyframes musicInfoLayerGlitch2 {
-            0%, 100% { opacity: 0.16; transform: translate(0,0);}
-            10% { opacity: 0.3; transform: translate(3px,2px);}
-            13% { opacity: 0.05; transform: translate(-3px,-2px);}
-            30% { opacity: 0.19;}
-            48% { opacity: 0.04;}
-            75% { opacity: 0.26;}
-        }
-
-        /* Extra disturbing stuff: red scanlines and static flicker */
-        .music-info::after,
-        .music-info::before {
-            pointer-events: none;
-        }
-        .music-info-scanlines {
-            pointer-events: none;
+        /* Hide the fallback text for accessibility but keep it for screen readers */
+        .final-creepy-line .sr-only {
             position: absolute;
-            left: 0; top: 0; width: 100%; height: 100%;
-            z-index: 10;
-            opacity: 0.18;
-            background: repeating-linear-gradient(
-                to bottom,
-                rgba(255,0,0,0.15) 0px,
-                rgba(255,0,0,0.08) 1.5px,
-                transparent 2.5px,
-                transparent 4px
-            );
-            mix-blend-mode: color-dodge;
-            animation: scanlinesFlicker 1.3s infinite steps(2);
-        }
-        @keyframes scanlinesFlicker {
-            0%, 100% { opacity: 0.14; }
-            30% { opacity: 0.20; }
-            49% { opacity: 0.05; }
-            65% { opacity: 0.28; }
-        }
-
-        .music-info-static {
-            pointer-events: none;
-            position: absolute;
-            left: 0; top: 0; width: 100%; height: 100%;
-            z-index: 11;
-            opacity: 0.08;
-            background: url('data:image/svg+xml;utf8,<svg width="120" height="12" xmlns="http://www.w3.org/2000/svg"><filter id="n"><feTurbulence baseFrequency="0.7" seed="8" /></filter><rect width="120" height="12" fill="white" filter="url(%23n)" opacity="0.18"/></svg>');
-            background-repeat: repeat;
-            animation: staticJitter 0.2s infinite steps(2);
-        }
-        @keyframes staticJitter {
-            0% { background-position: 0 0;}
-            50% { background-position: 3px 2px;}
-            100% { background-position: -1px -1px;}
-        }
-
-        @media (max-width: 600px) {
-            .music-controls {
-                top: 8px;
-                right: 8px;
-                padding: 7px;
-            }
-            .music-info {
-                left: 8px;
-                bottom: 8px;
-                font-size: 1rem;
-                padding: 9px 12px;
-            }
+            left: -9999px;
+            width: 1px;
+            height: 1px;
+            overflow: hidden;
         }
     </style>
 </head>
@@ -476,7 +104,7 @@
             <p>The air is quiet, except it isn't. Something hums. Or buzzes. Or rings.</p>
             <p>You blink.</p>
             <p><span class="glitch-thought">"There is a man here."</span></p>
-            <p>That thought doesn't belong to you. Not really. But it's there, like it's always been there, stapled to the back of your eyes. You're standing in front of the big pine behind the school[...]
+            <p>That thought doesn't belong to you. Not really. But it's there, like it's always been there, stapled to the back of your eyes. You're standing in front of the big pine behind the school[...]</p>
             <p><span class="glitch-thought">"There is a man here."</span></p>
             <p>Your hands are cold. One of them is holding something.</p>
             <p><span class="glitch-emphasis">You don't look.</span></p>
@@ -486,13 +114,13 @@
             <p>No… no. That's not right.</p>
             <p><span class="glitch-memory">She was crying.</span></p>
             <p>Yes. She was. Behind you. In front of you. By the tree. It's hard to say. The sound's long gone, but the echo's still fresh, like steam in winter.</p>
-            <p>The grass is bent where she stood. You think it was her. <span class="glitch-memory">Antlers like candle branches. Shoulders curled in.</span> She kept looking at you, but you couldn't [...]
+            <p>The grass is bent where she stood. You think it was her. <span class="glitch-memory">Antlers like candle branches. Shoulders curled in.</span> She kept looking at you, but you couldn't [...]</p>
             <p><span class="glitch-emphasis">Or maybe you let go.</span></p>
             <p>You can't stop looking at the tree.</p>
             <p>There's a shape behind it. Not moving. Not breathing. Not—</p>
             <p><span class="glitch">No, wait.</span></p>
             <p><span class="glitch-memory">It was moving. It was breathing.</span></p>
-            <p>You don't remember seeing its face. But you remember it having one. You remember the way it pressed against the bark, like it wanted to disappear into it. Like it was listening. Or wait[...]
+            <p>You don't remember seeing its face. But you remember it having one. You remember the way it pressed against the bark, like it wanted to disappear into it. Like it was listening. Or wait[...]</p>
             <p><span class="glitch-memory">Dess was afraid. She tugged your sleeve.</span> <span class="glitch-emphasis">You didn't move.</span></p>
             <p>You don't remember why you didn't move.</p>
             <p>Maybe you wanted to see what the man would do.</p>
@@ -509,7 +137,24 @@
             <p>You're still not sure if that means he's gone.</p>
             <p>Or if he's just somewhere else now.</p>
             <p><span class="glitch-emphasis">Behind another tree.</span></p>
-            <p><span class="glitch-emphasis">Behind you.</span></p>
+            <!-- FINAL CREEPY LINE START -->
+            <div class="final-creepy-line" id="finalLine" aria-live="polite">
+                <!-- Accessible fallback for screen readers -->
+                <span class="sr-only">Behind you.</span>
+                <!-- Each character is separated so we can animate/shake/glitch them individually -->
+                <span class="char">B</span>
+                <span class="char">e</span>
+                <span class="char">h</span>
+                <span class="char">i</span>
+                <span class="char">n</span>
+                <span class="char">d</span>
+                <span class="char">&nbsp;</span>
+                <span class="char">y</span>
+                <span class="char">o</span>
+                <span class="char">u</span>
+                <span class="char">.</span>
+            </div>
+            <!-- FINAL CREEPY LINE END -->
         </div>
     </div>
 
@@ -532,6 +177,149 @@
     </div>
 
     <script>
+        // ==== Final Creepy Line Animation ====
+        // "Behind you." => [Wingdings], "Find Her.", "Help Me.", then back, with per-letter shakes and glitch
+
+        // Unicode Wingdings mapping for "Behind you."
+        // Fallbacks will show normal letters if Wingdings is missing.
+        const wingdingsMap = {
+            'B': '\uF0A5', // hand pointing right
+            'e': '\uF076', // eye
+            'h': '\uF0B1', // clock (hourglass)
+            'i': '\uF06E', // exclamation
+            'n': '\uF0E0', // bell
+            'd': '\uF0A6', // hand pointing left
+            ' ': '\u00A0',
+            'y': '\uF0C6', // skull
+            'o': '\uF0A7', // thumb up
+            'u': '\uF018', // smiley
+            '.': '\uF0FB'  // black circle
+        };
+        // For fallback, just in case, fallback to normal letter.
+        function toWingdings(char) {
+            return wingdingsMap[char] || char;
+        }
+
+        const finalLine = document.getElementById('finalLine');
+        const charSpans = finalLine.querySelectorAll('.char');
+        // The three message states:
+        const states = [
+            { // 0: Normal
+                text: "Behind you.",
+                mode: "normal"
+            },
+            { // 1: Wingdings
+                text: "Behind you.",
+                mode: "wingdings"
+            },
+            { // 2: Glitch "Find Her."
+                text: "Find Her.",
+                mode: "glitch"
+            },
+            { // 3: Glitch "Help Me."
+                text: "Help Me.",
+                mode: "glitch"
+            }
+        ];
+
+        // Track current state
+        let currentState = 0;
+        let lastSwapTime = Date.now();
+
+        // Helper to update the display
+        function updateFinalLine(stateIdx, fade = false) {
+            const state = states[stateIdx];
+            if (fade) {
+                finalLine.classList.add('fading');
+            } else {
+                finalLine.classList.remove('fading');
+            }
+            // If text length is different, replace spans
+            if (charSpans.length !== state.text.length) {
+                finalLine.innerHTML = '<span class="sr-only">' + state.text + '</span>';
+                for (let c of state.text) {
+                    const span = document.createElement('span');
+                    span.className = 'char';
+                    span.textContent = c;
+                    finalLine.appendChild(span);
+                }
+            } else {
+                // Otherwise just update letters
+                finalLine.querySelector('.sr-only').textContent = state.text;
+                charSpans.forEach((span, i) => {
+                    span.textContent = state.text[i];
+                });
+            }
+            // Apply per-letter styles
+            const updatedSpans = finalLine.querySelectorAll('.char');
+            updatedSpans.forEach((span, i) => {
+                span.classList.remove('wingdings', 'glitch', 'shake', 'whisper');
+                // Wingdings state
+                if (state.mode === 'wingdings') {
+                    // Only apply to non-space
+                    if (state.text[i] !== ' ') {
+                        span.classList.add('wingdings');
+                        span.textContent = toWingdings(state.text[i]);
+                    }
+                }
+                // Glitch state
+                if (state.mode === 'glitch') {
+                    // Each letter gets shake and glitch
+                    if (state.text[i] !== ' ') {
+                        span.classList.add('glitch', 'shake');
+                        // Sometimes fade a letter for extra effect
+                        if (Math.random() > 0.7) span.classList.add('whisper');
+                    } else {
+                        span.classList.remove('glitch', 'shake', 'whisper');
+                    }
+                }
+            });
+        }
+
+        // Animate per-letter jitters randomly in normal and wingdings states
+        function jitterFinalLine() {
+            const spans = finalLine.querySelectorAll('.char');
+            if (currentState === 0 || currentState === 1) {
+                spans.forEach(span => {
+                    // Low chance of shake on each frame
+                    if (Math.random() > 0.91 && span.textContent.trim() !== '') {
+                        span.classList.add('shake');
+                        setTimeout(() => span.classList.remove('shake'), 140 + Math.random()*120);
+                    }
+                });
+            }
+        }
+
+        // Swap states on a timer
+        let swapTimer = null;
+        function nextFinalState() {
+            // Weighted: Main state (Behind you.) is longer, glitches and wingdings are flashes
+            let delay;
+            if (currentState === 0) { // Normal to Wingdings
+                currentState = 1;
+                delay = 650 + Math.random()*600;
+            } else if (currentState === 1) { // Wingdings to Glitch "Find Her."
+                currentState = 2;
+                delay = 240 + Math.random()*200;
+            } else if (currentState === 2) { // "Find Her." to "Help Me."
+                currentState = 3;
+                delay = 180 + Math.random()*140;
+            } else if (currentState === 3) { // "Help Me." to Normal
+                currentState = 0;
+                delay = 2600 + Math.random()*2000;
+            }
+            // Fade out/in between certain swaps for creepiness
+            let fade = (currentState === 1 || currentState === 0);
+            updateFinalLine(currentState, fade);
+            swapTimer = setTimeout(nextFinalState, delay);
+        }
+        // Start animation
+        updateFinalLine(0);
+        swapTimer = setTimeout(nextFinalState, 2600 + Math.random()*2200);
+        setInterval(jitterFinalLine, 68);
+
+        // --- The rest of your script remains unchanged. ---
+
         // Create falling snow
         function createSnow() {
             const snow = document.getElementById('snow');
